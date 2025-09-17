@@ -1,0 +1,224 @@
+/* ---------- Variables & Reset ---------- */
+:root{
+  --bg: #f5f7fb;
+  --muted:#6b7280;
+  --brand:#0078d4;
+  --brand-2:#00a3ff;
+  --card:#ffffff;
+  --text: #111827;
+  --card-variant: #f3f4f6;
+  --input-border: #e6e9ef;
+  --image-overlay: rgba(0,0,0,0.32);
+  --image-overlay-light: rgba(255,255,255,0.28);
+  --radius:12px;
+  --max-width:1100px;
+}
+/* Dark mode variables */
+body.dark-mode{
+  --bg:#0b1220;
+  --muted:#9aa3b2;
+  --brand:#4fb3ff;
+  --brand-2:#2aa7ff;
+  --card:#0f1724;
+  --card-variant: #0b1228;
+  --input-border: rgba(255,255,255,0.12);
+  --text: #e6eef8;
+  color:var(--text);
+}
+*{box-sizing:border-box}
+a{color:var(--brand); text-decoration:none}
+.hidden{display:none}
+.container{max-width:var(--max-width); margin:0 auto; padding:0 20px}
+.muted{color:var(--muted)}
+body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin:0; background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased}
+a{color:var(--brand); text-decoration:none}
+.hidden{display:none}
+.container{max-width:var(--max-width); margin:0 auto; padding:0 20px}
+.muted{color:var(--muted)}
+a{color:var(--brand); text-decoration:none}
+.hidden{display:none}
+.container{max-width:var(--max-width); margin:0 auto; padding:0 20px}
+.muted{color:var(--muted)}
+
+/* ---------- Utilities ---------- */
+.btn{display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:8px; border:0; cursor:pointer}
+.btn-primary{background:linear-gradient(90deg,var(--brand),var(--brand-2)); color:#fff; box-shadow:0 8px 24px rgba(0,120,212,0.12)}
+.btn-ghost{background:transparent; color:var(--text); border:1px solid rgba(0,0,0,0.06)}
+.cta-row{display:flex; gap:12px; margin-top:12px}
+
+/* ---------- Header ---------- */
+.site-header{background:transparent; position:sticky; top:0; z-index:40; backdrop-filter: blur(6px)}
+.site-header .header-inner{display:flex; align-items:center; justify-content:space-between; padding:18px 20px; max-width:var(--max-width); margin:0 auto}
+.logo{font-weight:700; font-size:1.25rem; color:var(--brand)}
+.main-nav{display:flex; gap:18px}
+.main-nav a{color:var(--text); font-weight:600}
+.mobile-only{display:none}
+.settings-menu{position:absolute; right:20px; top:64px; background:var(--card); padding:10px; border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,0.08)}
+
+/* keep header actions in a single row and space items nicely */
+.header-actions{display:flex; align-items:center; gap:12px}
+.header-actions #auth-area{display:flex; gap:8px; align-items:center}
+
+
+/* ---------- Hero & Recommender ---------- */
+.hero{padding:60px 0; background:linear-gradient(135deg,#0078d4 0%, #00a3ff 60%); color:#fff}
+.hero-inner{display:flex; gap:24px; align-items:center; justify-content:space-between}
+.hero-copy{flex:1; max-width:560px}
+.hero-copy h1{font-size:2.25rem; margin:0 0 12px; color:#fff}
+.hero-copy p{color:rgba(255,255,255,0.95); margin:0 0 12px}
+.hero-card{width:380px; background:var(--card); padding:18px; border-radius:12px; box-shadow:0 12px 40px rgba(2,6,23,0.12); color:var(--text)}
+.hero-card h2{margin:0 0 6px}
+.form{display:flex; gap:8px; margin-top:12px}
+.form input{flex:1; padding:10px 12px; border-radius:8px; border:1px solid var(--input-border); background:transparent; color:var(--text)}
+.form input[type="number"]{width:90px}
+.status{margin-top:10px; color:var(--muted)}
+.results{margin-top:12px}
+
+/* ---------- Features ---------- */
+.features{padding:40px 0; text-align:center}
+.feature-grid{display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); margin-top:18px}
+.feature{background:var(--card); padding:18px; border-radius:12px; box-shadow:0 8px 28px rgba(2,6,23,0.06)}
+
+/* ---------- Featured Destinations ---------- */
+.featured{padding:40px 0}
+.featured .grid{display:grid; gap:18px; grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.card{background:var(--card); border-radius:12px; overflow:hidden; box-shadow:0 10px 30px rgba(2,6,23,0.06); transition:transform .18s ease, box-shadow .18s ease}
+.card:hover{transform:translateY(-6px); box-shadow:0 22px 44px rgba(2,6,23,0.12)}
+.card-media{background:var(--card-variant)}
+.card-body{padding:12px 14px}
+
+/* Ensure titles over images are readable: add overlay and use text-shadow that adapts */
+.card .card-media{position:relative}
+.card .card-media::after{content:""; position:absolute; left:0; right:0; top:0; bottom:0; pointer-events:none; border-radius:inherit;}
+
+/* For dark mode use a lighter overlay so images remain visible */
+/* Use a very subtle overlay in dark mode only so embedded image text stays readable */
+/* stronger overlays for improved readability */
+/* Make overlays deeper so text remains legible on busy photos in both themes */
+body.dark-mode .card .card-media::after{background:linear-gradient(to bottom, rgba(0,0,0,0.18), rgba(0,0,0,0.42));}
+body:not(.dark-mode) .card .card-media::after{background:linear-gradient(to bottom, rgba(255,255,255,0.02), rgba(0,0,0,0.06));}
+
+/* Improve text contrast for headings/captions near images */
+.card-body h3, .card-body p{color:var(--text); text-shadow: none}
+/* In dark mode add a small darker glow to help separation from backgrounds */
+body.dark-mode .card-body h3, body.dark-mode .card-body p{color:var(--text); text-shadow: 0 3px 14px rgba(0,0,0,0.8);}
+
+/* make headings bolder to improve legibility */
+.card-body h3{font-weight:700}
+
+/* Make sure the heading text sits above the badge */
+.card-body h3{font-weight:700}
+
+/* ---------- Blog ---------- */
+.blog{padding:40px 0}
+.blog-grid{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.post{background:var(--card); padding:14px; border-radius:10px; box-shadow:0 8px 28px rgba(0,0,0,0.06)}
+
+/* ---------- Newsletter & Footer ---------- */
+.newsletter{padding:36px 0; text-align:center}
+.newsletter-form{display:flex; justify-content:center; gap:10px; margin-top:12px}
+.newsletter-form input{padding:10px 12px; border-radius:8px; border:1px solid #e6e9ef}
+.site-footer{background:transparent; padding:28px 0 20px}
+.site-footer .footer-grid{display:grid; grid-template-columns:1fr 1fr 320px; gap:20px; align-items:start}
+.site-footer .footer-col h3{margin:0 0 8px}
+.site-footer .footer-col p{margin:0 0 8px}
+.site-footer .footer-col ul{list-style:none; padding:0; margin:0}
+.site-footer .footer-col ul li{margin:6px 0}
+.site-footer .footer-col a{color:var(--brand)}
+
+/* ---------- Chat bot ---------- */
+#chat-bot{position:fixed; bottom:20px; right:20px}
+
+/* ---------- Responsiveness ---------- */
+@media (max-width:900px){
+  .hero-inner{flex-direction:column-reverse; gap:18px}
+  .hero-card{width:100%}
+  .main-nav{display:none}
+  .mobile-only{display:inline-block}
+  .cta-row{flex-direction:column; align-items:flex-start}
+}
+
+/* Container and grid if you don't have them already */
+.featured .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Card styling */
+.card {
+  background: var(--card);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+/* Image container */
+.card-media {
+  overflow: hidden;
+}
+
+/* Image itself with hover effect */
+.card-media img {
+  width: 100%;
+  height: 180px;          /* adjust to taste */
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-media img:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+}
+
+/* Text under the photo */
+.card-body {
+  padding: 1rem;
+}
+
+.card-body h3 {
+  margin: 0.5rem 0 0.25rem;
+  font-size: 1.2rem;
+}
+
+.card-body p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Results readability */
+.results { color: var(--text); }
+.results ol { list-style: decimal; padding-left: 18px; }
+.results li { background: var(--card); padding: 8px 10px; border-radius: 8px; margin: 6px 0; color: var(--text); }
+
+/* ---------- Auth (login/signup) ---------- */
+.auth-page{padding:64px 16px}
+.auth-card{max-width:420px; margin:40px auto; background:var(--card); border-radius:12px; padding:22px; box-shadow:0 18px 40px rgba(2,6,23,0.08)}
+.auth-brand .logo{font-size:1.15rem; font-weight:800; color:var(--brand);}
+.auth-brand p{margin:8px 0 0}
+.auth-form{margin-top:14px; display:flex; flex-direction:column; gap:12px}
+.field{display:flex; flex-direction:column; font-weight:600}
+.field input{margin-top:6px; padding:10px 12px; border-radius:8px; border:1px solid var(--input-border); background:transparent; color:var(--text)}
+.auth-actions{display:flex; align-items:center; justify-content:space-between; margin-top:8px}
+.auth-foot{margin-top:14px; font-size:0.9rem; color:var(--muted)}
+
+@media (max-width:520px){
+  .auth-card{margin:20px auto; padding:16px}
+  .auth-page{padding:30px 12px}
+}
+
+/* Background video for auth pages */
+.auth-video-wrap{position:fixed; left:0; right:0; top:0; bottom:0; z-index:1; overflow:hidden}
+.auth-video{width:100%; height:100%; object-fit:cover; opacity:0.9}
+.auth-video-overlay{position:absolute; inset:0; background:linear-gradient(180deg, rgba(3,7,18,0.28), rgba(3,7,18,0.58));}
+.auth-card{position:relative; z-index:2}
+
+/* Reduce visual clutter on very small screens */
+@media (max-width:520px){
+  .auth-video{display:none}
+  .auth-video-wrap{display:none}
+}

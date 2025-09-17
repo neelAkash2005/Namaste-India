@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Sign up — Namaste India</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <main class="container auth-page">
+    <div class="auth-video-wrap" aria-hidden="true">
+      <video class="auth-video" autoplay muted loop playsinline poster="/static/videos/video.mov">
+        <source src="/static/videos/video.mov" type="video/mp4">
+      </video>
+      <div class="auth-video-overlay"></div>
+    </div>
+    <div class="auth-card">
+      <div class="auth-brand">
+        <div class="logo">NAMASTE INDIA</div>
+        <p class="muted">Create an account to save preferences and get personalized recommendations.</p>
+      </div>
+      <form id="signup-form" class="auth-form">
+        <label class="field">First name
+          <input name="firstName" required autocomplete="given-name">
+        </label>
+        <label class="field">Last name
+          <input name="lastName" required autocomplete="family-name">
+        </label>
+        <label class="field">Email
+          <input name="email" type="email" required autocomplete="email">
+        </label>
+        <label class="field">Country
+          <input name="country" required autocomplete="country">
+        </label>
+        <label class="field">Username
+          <input name="username" required autocomplete="username">
+        </label>
+        <label class="field">Password
+          <input name="password" type="password" required autocomplete="new-password">
+        </label>
+
+        <div class="auth-actions">
+          <button class="btn btn-primary">Sign up</button>
+          <a class="muted" href="/login">Already have an account?</a>
+        </div>
+      </form>
+      <div class="auth-foot muted">We never share your information.</div>
+    </div>
+  </main>
+  <script src="/static/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>City Recommender – Tourism Explorer</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <!-- Header with settings -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">NAMASTE INDIA</div>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#features">Features</a>
+        <a href="#featured">Destinations</a>
+        <a href="#blog">Travel Tips</a>
+        <a href="#newsletter">Newsletter</a>
+      </nav>
+      <div class="header-actions">
+        <div id="auth-area">
+          <a class="btn btn-ghost" href="/login">Login</a>
+          <a class="btn btn-primary" href="/signup">Sign up</a>
+        </div>
+        <button id="settings-btn" aria-label="Settings">⚙️</button>
+        <button id="mobile-nav-toggle" class="mobile-only" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+    <div id="settings-menu" class="settings-menu hidden" aria-hidden="true">
+      <label><input type="checkbox" id="dark-toggle"> Dark Mode</label>
+      <div class="zoom-controls">
+        <button id="zoom-in">Zoom In</button>
+        <button id="zoom-out">Zoom Out</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero + Recommender card -->
+  <section class="hero">
+    <div class="hero-inner container">
+      <div class="hero-copy">
+        <h1>Find your next unforgettable city trip</h1>
+        <p>Discover similar cities based on curated travel data, duration and best times to visit.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#recommender">Try the Recommender</a>
+          <a class="btn btn-ghost" href="#featured">Explore Destinations</a>
+        </div>
+      </div>
+      <div class="hero-card" id="recommender">
+        <h2>City Recommender</h2>
+        <p class="muted">Get tailored suggestions in seconds</p>
+        <div class="form">
+          <input id="city-input" placeholder="Enter city name" aria-label="City name">
+          <input id="topn-input" type="number" value="5" min="1" max="20" aria-label="Top N">
+          <button id="go" class="btn btn-primary">Recommend</button>
+        </div>
+        <div id="status" class="status">Ready</div>
+        <div id="results" class="results"></div>
+      </div>
+    </div>
+  </section>
+
+  
+  <!-- Features -->
+  <section id="features" class="container features">
+    <h2>Why use City Recommender?</h2>
+    <div class="feature-grid">
+      <div class="feature">
+        <h3>Smart suggestions</h3>
+        <p>Find cities with similar travel vibes, durations and best visiting times.</p>
+      </div>
+      <div class="feature">
+        <h3>Curated data</h3>
+        <p>We combine local highlights, travel times and seasonal tips.</p>
+      </div>
+      <div class="feature">
+        <h3>Simple UI</h3>
+        <p>Quick lookups and a friendly interface — travel planning made easy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Destinations -->
+  <section id="featured" class="featured container">
+  <h2>Top Attractions</h2>
+  <div class="grid">
+
+    <!-- Kolkata -->
+    <article class="card">
+      <div class="card-media">
+  <img src="/static/images/kolkata.jpg" alt="Kolkata">
+      </div>
+      <div class="card-body">
+        <h3>Kolkata</h3>
+        <p>The city of joy</p>
+      </div>
+    </article>
+
+    <!-- Varanasi -->
+    <article class="card">
+      <div class="card-media">
+  <img src="/static/images/varanasi.jpg" alt="Varanasi">
+      </div>
+      <div class="card-body">
+        <h3>Varanasi</h3>
+        <p>Where spirituality meets eternity</p>
+      </div>
+    </article>
+
+    <!-- Goa -->
+    <article class="card">
+      <div class="card-media">
+  <img src="/static/images/goa.jpg" alt="Goa">
+      </div>
+      <div class="card-body">
+        <h3>Goa</h3>
+        <p>Beaches, nightlife, and fun</p>
+      </div>
+    </article>
+
+      <!-- Mumbai -->
+    <article class="card">
+      <div class="card-media">
+  <img src="/static/images/mumbai.jpg" alt="Mumbai">
+      </div>
+      <div class="card-body">
+        <h3>Mumbai</h3>
+        <p>City of dreams and Bollywood vibes</p>
+      </div>
+    </article>
+
+     <!-- Shimla -->
+    <article class="card">
+      <div class="card-media">
+  <img src="/static/images/shimla.jpg" alt="Shimla">
+      </div>
+      <div class="card-body">
+        <h3>Shimla</h3>
+        <p>Queen of Hills</p>
+      </div>
+    </article>
+
+    <!-- Chennai -->
+    <article class="card">
+      <div class="card-media">
+  <img src="/static/images/chennai.jpg" alt="Chennai">
+      </div>
+      <div class="card-body">
+        <h3>Chennai</h3>
+        <p>Gateway to South Indian Culture</p>
+      </div>
+    </article>
+
+    <!-- Jaipur -->
+    <article class="card">
+      <div class="card-media">
+  <img src="/static/images/jaipur.jpg" alt="Jaipur">
+      </div>
+      <div class="card-body">
+        <h3>Jaipur</h3>
+        <p>The pink City of palaces and traditions</p>
+      </div>
+    </article>
+
+    <!-- Delhi -->
+    <article class="card">
+      <div class="card-media">
+  <img src="/static/images/delhi.jpg" alt="Delhi">
+      </div>
+      <div class="card-body">
+        <h3>Delhi</h3>
+        <p>Where history meets modern India</p>
+      </div>
+    </article>
+
+
+  </div>
+</section>
+
+
+  <!-- Blog -->
+  <section id="blog" class="blog container">
+    
+    <div class="blog-grid">
+      <article class="post">
+        <h3>How to pack light for city trips</h3>
+        <p class="muted">Essentials and space-saving tips.</p>
+      </article>
+      <article class="post">
+        <h3>Best times to visit shimla</h3>
+        <p class="muted">Seasonal highlights and crowd tips.</p>
+      </article>
+      <article class="post">
+        <h3>Top 10 food spots in Kolkata</h3>
+        <p class="muted">Local favorites and markets.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section id="newsletter" class="newsletter container">
+    <h2>Stay in the loop</h2>
+    <p class="muted">Sign up for curated destination picks and travel tips.</p>
+    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thanks — demo signup');">
+      <input type="email" placeholder="Your email" required aria-label="Your email">
+      <button class="btn btn-primary">Subscribe</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-col about-us">
+        <h3>About Us</h3>
+        <p>Discover India’s cities with ease. Our platform shares trusted guides and hidden gems, and our smart City Recommendation System suggests destinations tailored to your interests. From mountain escapes to coastal retreats, start your next adventure here..</p>
+      </div>
+      <div class="footer-col links">
+        <h3>Support & Quick Links</h3>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col contact">
+        <h3>NAMASTE INDIA</h3>
+        <p>123 Travel Lane<br>Kolkata, India 110001</p>
+        <p>Email: <a href="mailto:namasteindia.atyourservice@gmail.com">namasteindia.atyourservice@gmail.com</a></p>
+        <p>Phone: +91 62918 73457</p>
+      </div>
+    </div>
+    <div class="container" style="margin-top:16px; text-align:center; opacity:0.8; font-size:0.9rem">© 2025 City Recommender</div>
+  </footer>
+
+  <!-- Chat Bot -->
+  <div id="chat-bot">
+    <button id="chat-toggle" aria-label="Open Chat">💬</button>
+    <div id="chat-window" class="hidden">
+      <h3>Tour Bot (demo)</h3>
+      <div class="messages">
+        <p>Hello! I’m a dummy bot for now.</p>
+      </div>
+      <input type="text" placeholder="Type a message…" disabled>
+    </div>
+  </div>
+
+  <script src="/static/main.js"></script>
+</body>
+</html>
