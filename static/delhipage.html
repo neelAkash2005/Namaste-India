@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Explore Delhi</title>
+  <link rel="stylesheet" href="style.css"><!-- optional external CSS -->
+  <style>
+    /* --- Base styles --- */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: #e6f2ff;
+      color: #333;
+    }
+
+    /* Hero header */
+    header {
+      background: url('/static/images/delhi-banner.jpg') center/cover no-repeat;
+      height: 120vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #005a99;
+      padding: 0 1rem;
+    }
+    header h1,
+    header p {
+      color: #ffffff;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+      font-weight: 600;
+    }
+
+    /* --- Sections --- */
+    section {
+      padding: 60px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+    section h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 40px;
+      color: #005a99;
+    }
+
+    .grid {
+      display: grid;
+      gap: 30px;
+    }
+    @media (min-width: 768px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .card {
+      background: #f0f8ff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .card h3 {
+      margin: 15px;
+      font-size: 1.3rem;
+      color: #004466;
+    }
+    .card p {
+      margin: 0 15px 20px;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px 10px;
+      background: #b85c38;
+      color: #005a99;
+      margin-top: 40px;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      background: #fff;
+      color: #005a99;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .back-btn:hover {
+      background: #cce6ff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <header>
+    <h1>Explore Delhi</h1>
+    <p>The capital city of India—where history, politics, and culture coexist in a vibrant mix.</p>
+  </header>
+
+  <!-- Main Spots -->
+  <section id="spots">
+    <h2>Main Attractions</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="/static/images/red-fort.jpg" alt="Red Fort">
+        <h3>Red Fort</h3>
+        <p>The iconic 17th-century Mughal fort with stunning architecture and historical significance.</p>
+      </div>
+      <div class="card">
+        <img src="/static/images/qutub-minar.jpg" alt="Qutub Minar">
+        <h3>Qutub Minar</h3>
+        <p>A UNESCO World Heritage Site and the tallest brick minaret in the world, dating back to 1193 AD.</p>
+      </div>
+      <div class="card">
+        <img src="/static/images/india-gate.jpg" alt="India Gate">
+        <h3>India Gate</h3>
+        <p>A war memorial honoring Indian soldiers, set amidst lush lawns and fountains.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Foods -->
+  <section id="food">
+    <h2>Must-Try Foods</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="/static/images/chole-bhature.jpg" alt="Chole Bhature">
+        <h3>Chole Bhature</h3>
+        <p>Spicy chickpea curry served with deep-fried fluffy bread—a Delhi breakfast classic.</p>
+      </div>
+      <div class="card">
+        <img src="/static/images/butter-chicken.jpg" alt="Butter Chicken">
+        <h3>Butter Chicken</h3>
+        <p>Rich, creamy chicken curry with tomato-based gravy—originated in Delhi and loved nationwide.</p>
+      </div>
+      <div class="card">
+        <img src="/static/images/paranthe-wali-gali.jpg" alt="Paranthe Wali Gali">
+        <h3>Paranthe Wali Gali</h3>
+        <p>A famous street for stuffed parathas with various fillings, a must-visit foodie spot.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Best Time -->
+  <section id="best-time">
+    <h2>Best Time to Visit</h2>
+    <p style="max-width:800px;margin:auto;font-size:1.1rem;line-height:1.8;text-align:center;">
+      <strong>October to March</strong> is ideal for sightseeing in comfortable weather.  
+      Visit during <strong>Diwali</strong> or <strong>Republic Day</strong> to witness vibrant celebrations.
+    </p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p style="color: black;"><b>Discover the spirit of Delhi &nbsp;•&nbsp; Heritage • Culture • Cuisine</b></p>
+    <a class="back-btn" href="index.html">⬅ Back to Home</a>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Explore Chennai</title>
+  <link rel="stylesheet" href="style.css"><!-- optional external CSS -->
+  <style>
+    /* --- Base styles --- */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: #e6f2ff;       /* light blue background */
+      color: #333;
+    }
+
+    /* Hero header */
+    header {
+      background: url('/static/images/chennai-banner.jpg') center/cover no-repeat;
+      height: 120vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #005a99;
+      padding: 0 1rem;
+    }
+    header h1,
+    header p {
+      color: #ffffff;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+      font-weight: 600;
+    }
+
+    /* --- Sections --- */
+    section {
+      padding: 60px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+    section h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 40px;
+      color: #005a99;
+    }
+
+    .grid {
+      display: grid;
+      gap: 30px;
+    }
+    @media (min-width: 768px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .card {
+      background: #f0f8ff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .card h3 {
+      margin: 15px;
+      font-size: 1.3rem;
+      color: #004466;
+    }
+    .card p {
+      margin: 0 15px 20px;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px 10px;
+      background: #b85c38;
+      color: #005a99;
+      margin-top: 40px;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      background: #fff;
+      color: #005a99;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .back-btn:hover {
+      background: #cce6ff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <header>
+    <h1>Explore Chennai</h1>
+    <p>The gateway to South India—where ancient temples, vibrant culture, and golden beaches meet.</p>
+  </header>
+
+  <!-- Main Spots -->
+  <section id="spots">
+    <h2>Main Attractions</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="/static/images/marina-beach.jpg" alt="Marina Beach">
+        <h3>Marina Beach</h3>
+        <p>India’s longest urban beach, perfect for sunrise walks and evening breezes along the Bay of Bengal.</p>
+      </div>
+      <div class="card">
+        <img src="/static/images/kapaleeshwarar-temple.jpg" alt="Kapaleeshwarar Temple">
+        <h3>Kapaleeshwarar Temple</h3>
+        <p>A magnificent Dravidian-style temple dedicated to Lord Shiva, rich in color and intricate carvings.</p>
+      </div>
+      <div class="card">
+        <img src="/static/images/fort-st-george.jpg" alt="Fort St. George">
+        <h3>Fort St. George</h3>
+        <p>Built in 1644 by the British, this historic fort houses a museum and remnants of colonial architecture.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Foods -->
+  <section id="food">
+    <h2>Must-Try Foods</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="/static/images/filter-coffee.jpg" alt="Filter Coffee">
+        <h3>South Indian Filter Coffee</h3>
+        <p>Strong, aromatic coffee brewed in the traditional style and served frothy in a steel tumbler.</p>
+      </div>
+      <div class="card">
+        <img src="/static/images/dosa.jpg" alt="Masala Dosa">
+        <h3>Masala Dosa</h3>
+        <p>A crisp fermented crepe stuffed with spiced potatoes, accompanied by sambar and chutneys.</p>
+      </div>
+      <div class="card">
+        <img src="/static/images/chettinad-chicken.jpg" alt="Chettinad Chicken">
+        <h3>Chettinad Chicken</h3>
+        <p>A fiery chicken curry made with freshly ground spices—a specialty of Tamil Nadu cuisine.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Best Time -->
+  <section id="best-time">
+    <h2>Best Time to Visit</h2>
+    <p style="max-width:800px;margin:auto;font-size:1.1rem;line-height:1.8;text-align:center;">
+      The best months are <strong>November to February</strong>, when the weather is cooler and pleasant.  
+      Experience the city’s culture during the vibrant <strong>Margazhi Music Season</strong> of December–January.
+    </p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p style="color: black;"><b>Discover the soul of Chennai &nbsp;•&nbsp; Culture • Cuisine • Heritage</b></p>
+    <a class="back-btn" href="index.html">⬅ Back to Home</a>
+  </footer>
+
+</body>
+</html>

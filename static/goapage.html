@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Explore Goa</title>
+  <link rel="stylesheet" href="style.css"><!-- optional external CSS -->
+  <style>
+    /* --- Base styles --- */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: #e6f2ff;       /* light blue background */
+      color: #333;
+    }
+
+    /* Hero header */
+    header {
+      background: url('/static/images/goa-banner.jpg') center/cover no-repeat;
+      height: 120vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #005a99;
+      padding: 0 1rem;
+    }
+    header h1,
+    header p {
+      color: #ffffff;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+      font-weight: 600;
+    }
+
+    /* --- Sections --- */
+    section {
+      padding: 60px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+    section h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 40px;
+      color: #005a99;
+    }
+
+    .grid {
+      display: grid;
+      gap: 30px;
+    }
+    @media (min-width: 768px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .card {
+      background: #f0f8ff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .card h3 {
+      margin: 15px;
+      font-size: 1.3rem;
+      color: #004466;
+    }
+    .card p {
+      margin: 0 15px 20px;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px 10px;
+      background: #b85c38;
+      color: #005a99;
+      margin-top: 40px;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      background: #fff;
+      color: #005a99;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .back-btn:hover {
+      background: #cce6ff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <header>
+    <h1>Explore Goa</h1>
+    <p>India’s beach paradise—sun-kissed shores, vibrant nightlife, and a blend of Portuguese charm.</p>
+  </header>
+
+  <!-- Main Spots -->
+  <section id="spots">
+    <h2>Main Attractions</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="/static/images/baga-beach.jpg" alt="Baga Beach">
+        <h3>Baga Beach</h3>
+        <p>One of Goa’s most popular beaches, known for water sports, shacks, and lively evenings.</p>
+      </div>
+      <div class="card">
+        <img src="/static/images/basilica-bom-jesus.jpg" alt="Basilica of Bom Jesus">
+        <h3>Basilica of Bom Jesus</h3>
+        <p>A UNESCO World Heritage Site housing the relics of St. Francis Xavier, showcasing baroque architecture.</p>
+      </div>
+      <div class="card">
+        <img src="/static/images/aguada-fort.jpg" alt="Fort Aguada">
+        <h3>Fort Aguada</h3>
+        <p>A 17th-century Portuguese fort overlooking the Arabian Sea, offering panoramic views and history.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Foods -->
+  <section id="food">
+    <h2>Must-Try Foods</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="/static/images/goan-fish-curry.jpg" alt="Goan Fish Curry">
+        <h3>Goan Fish Curry</h3>
+        <p>A tangy coconut-based curry with fresh fish, perfectly paired with steamed rice.</p>
+      </div>
+      <div class="card">
+        <img src="/static/images/prawn-baldao.jpg" alt="Prawn Balchao">
+        <h3>Prawn Balchao</h3>
+        <p>A spicy and flavorful pickle-style prawn dish influenced by Portuguese cuisine.</p>
+      </div>
+      <div class="card">
+        <img src="/static/images/bebinca.jpg" alt="Bebinca">
+        <h3>Bebinca</h3>
+        <p>Goa’s signature layered dessert made of coconut milk, eggs, and ghee—sweet and decadent.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Best Time -->
+  <section id="best-time">
+    <h2>Best Time to Visit</h2>
+    <p style="max-width:800px;margin:auto;font-size:1.1rem;line-height:1.8;text-align:center;">
+      <strong>November to February</strong> is perfect for pleasant weather and beach activities.  
+      Visit in late December to enjoy <strong>Goa Carnival</strong> and lively New Year celebrations.
+    </p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p style="color: black;"><b>Discover the spirit of Goa &nbsp;•&nbsp; Beaches • Culture • Cuisine</b></p>
+    <a class="back-btn" href="index.html">⬅ Back to Home</a>
+  </footer>
+
+</body>
+</html>

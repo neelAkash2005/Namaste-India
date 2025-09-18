@@ -138,6 +138,36 @@ def signup_page():
 def kolkata_page():
     return send_from_directory(app.static_folder, 'kolkatapage.html')
 
+@app.route('/varanasi')
+def varanasi_page():
+    return send_from_directory(app.static_folder, 'varanasipage.html')
+
+@app.route('/goa')
+def goa_page():
+    return send_from_directory(app.static_folder, 'goapage.html')
+
+@app.route('/mumbai')
+def mumbai_page():
+    return send_from_directory(app.static_folder, 'mumbaipage.html')
+
+@app.route('/shimla')
+def shimla_page():
+    return send_from_directory(app.static_folder, 'shimlapage.html')
+
+@app.route('/chennai')
+def chennai_page():
+    return send_from_directory(app.static_folder, 'chennaipage.html')
+
+@app.route('/jaipur')
+def jaipur_page():
+    return send_from_directory(app.static_folder, 'jaipurpage.html')
+
+@app.route('/delhi')
+def delhi_page():
+    return send_from_directory(app.static_folder, 'delhipage.html')
+
+
+
 
 # ---- Auth API ----
 @app.route('/auth/signup', methods=['POST'])

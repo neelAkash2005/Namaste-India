@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Explore Mumbai</title>
+  <link rel="stylesheet" href="style.css"><!-- optional external CSS -->
+  <style>
+    /* --- Base styles --- */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: #e6f2ff;       /* light blue background */
+      color: #333;
+    }
+
+    /* Hero header */
+    header {
+      background: url('/static/images/mumbai-banner.jpg') center/cover no-repeat;
+      height: 120vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #005a99;
+      padding: 0 1rem;
+    }
+    header h1,
+    header p {
+      color: #ffffff;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+      font-weight: 600;
+    }
+
+    /* --- Sections --- */
+    section {
+      padding: 60px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+    section h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 40px;
+      color: #005a99;
+    }
+
+    .grid {
+      display: grid;
+      gap: 30px;
+    }
+    @media (min-width: 768px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .card {
+      background: #f0f8ff;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .card h3 {
+      margin: 15px;
+      font-size: 1.3rem;
+      color: #004466;
+    }
+    .card p {
+      margin: 0 15px 20px;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px 10px;
+      background: #b85c38;
+      color: #005a99;
+      margin-top: 40px;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      background: #fff;
+      color: #005a99;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .back-btn:hover {
+      background: #cce6ff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <header>
+    <h1>Explore Mumbai</h1>
+    <p>The city of dreams—where Bollywood glamour meets colonial charm and a bustling waterfront.</p>
+  </header>
+
+  <!-- Main Spots -->
+  <section id="spots">
+    <h2>Main Attractions</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="/static/images/gateway-of-india.jpg" alt="Gateway of India">
+        <h3>Gateway of India</h3>
+        <p>An iconic waterfront arch built in 1924, perfect for sunrise views and boat rides to Elephanta Island.</p>
+      </div>
+      <div class="card">
+        <img src="/static/images/marine-drive.jpg" alt="Marine Drive">
+        <h3>Marine Drive</h3>
+        <p>The famous “Queen’s Necklace,” a 3.6-km boulevard along the Arabian Sea ideal for evening strolls.</p>
+      </div>
+      <div class="card">
+        <img src="/static/images/chhatrapati-terminus.jpg" alt="Chhatrapati Shivaji Terminus">
+        <h3>Chhatrapati Shivaji Terminus</h3>
+        <p>A UNESCO World Heritage railway station blending Victorian Gothic architecture with Indian influences.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Foods -->
+  <section id="food">
+    <h2>Must-Try Foods</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="/static/images/vada-pav.jpg" alt="Vada Pav">
+        <h3>Vada Pav</h3>
+        <p>Mumbai’s iconic street snack—spicy potato fritter in a soft bun, served with chutneys.</p>
+      </div>
+      <div class="card">
+        <img src="/static/images/pav-bhaji.jpg" alt="Pav Bhaji">
+        <h3>Pav Bhaji</h3>
+        <p>A buttery mix of spiced vegetables served with soft buns, loved by locals and visitors alike.</p>
+      </div>
+      <div class="card">
+        <img src="/static/images/bhel-puri.jpg" alt="Bhel Puri">
+        <h3>Bhel Puri</h3>
+        <p>A crunchy, tangy snack of puffed rice, vegetables, and chutneys found along Mumbai’s beaches.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Best Time -->
+  <section id="best-time">
+    <h2>Best Time to Visit</h2>
+    <p style="max-width:800px;margin:auto;font-size:1.1rem;line-height:1.8;text-align:center;">
+      <strong>November to February</strong> offers pleasant weather for sightseeing and beach walks.  
+      Visit during <strong>Ganesh Chaturthi</strong> (Aug–Sept) to witness grand celebrations across the city.
+    </p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p style="color: black;"><b>Discover the pulse of Mumbai &nbsp;•&nbsp; Heritage • Cuisine • Nightlife</b></p>
+    <a class="back-btn" href="index.html">⬅ Back to Home</a>
+  </footer>
+
+</body>
+</html>
