@@ -5,6 +5,89 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>City Recommender – Tourism Explorer</title>
   <link rel="stylesheet" href="/static/styles.css">
+
+  <style>
+    /* ✅ Special style for Book Now links */
+    .book-now-highlight {
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      color: #fff !important;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+    .book-now-highlight:hover {
+      transform: scale(1.08);
+      background: linear-gradient(135deg, #ff4b2b, #ff416c);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    }
+
+    /* ✅ Hero CTA Book Now more attractive */
+    .hero .cta-row .btn.book-now-cta {
+      background: linear-gradient(135deg, #ff9966, #ff5e62);
+      color: #fff;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 35px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+      animation: pulse 2s infinite;
+    }
+    .hero .cta-row .btn.book-now-cta:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255,94,98,0.6); }
+      70% { box-shadow: 0 0 0 15px rgba(255,94,98,0); }
+      100% { box-shadow: 0 0 0 0 rgba(255,94,98,0); }
+    }
+
+    .settings-menu {
+      display: none;
+      position: absolute;
+      right: 10px;
+      top: 50px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+
+    body.dark-mode {
+      background-color: #121212 !important;
+      color: #e0e0e0 !important;
+    }
+    body.dark-mode header,
+    body.dark-mode footer,
+    body.dark-mode section {
+      background-color: #1e1e1e !important;
+      color: #e0e0e0 !important;
+    }
+
+    /* Recommendation results */
+    .results {
+      margin-top: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .city-card {
+      padding: 8px 12px;
+      border-radius: 10px;
+      background-color: #f0f0f0;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .city-card:hover {
+      background-color: #ff7a50;
+      color: white;
+      transform: scale(1.05);
+    }
+  </style>
 </head>
 <body>
   <!-- Header with settings -->
@@ -14,7 +97,8 @@
       <nav class="main-nav" aria-label="Main navigation">
         <a href="#features">Features</a>
         <a href="#featured">Destinations</a>
-        <a href="#blog">Travel Tips</a>
+        <a href="#travel-guides">Travel Tips</a>
+        <a href="#booking" class="book-now-highlight">Book Now</a>
         <a href="#newsletter">Newsletter</a>
       </nav>
       <div class="header-actions">
@@ -44,6 +128,7 @@
         <div class="cta-row">
           <a class="btn btn-primary" href="#recommender">Try the Recommender</a>
           <a class="btn btn-ghost" href="#featured">Explore Destinations</a>
+          <a class="btn book-now-cta" href="#booking">Book Now</a>
         </div>
       </div>
       <div class="hero-card" id="recommender">
@@ -60,7 +145,6 @@
     </div>
   </section>
 
-  
   <!-- Features -->
   <section id="features" class="container features">
     <h2>Why use City Recommender?</h2>
@@ -82,162 +166,204 @@
 
   <!-- Featured Destinations -->
   <section id="featured" class="featured container">
-  <h2>Top Attractions</h2>
-  <div class="grid">
+    <h2>Top Attractions</h2>
+    <div class="grid">
+      <!-- Cities -->
+      <article class="card">
+        <div class="card-media"><a href="/kolkata"><img src="/static/images/kolkata.jpg" alt="Kolkata"></a></div>
+        <div class="card-body"><h3>Kolkata</h3><p>The city of joy</p><br><br><button class="btn btn-secondary" onclick="window.location.href='/kolkata'">Explore</button></div>
+      </article>
+      <article class="card">
+        <div class="card-media"><a href="/varanasi"><img src="/static/images/varanasi.jpg" alt="Varanasi"></a></div>
+        <div class="card-body"><h3>Varanasi</h3><p>Where spirituality meets eternity</p><br><button class="btn btn-secondary" onclick="window.location.href='/varanasi'">Explore</button></div>
+      </article>
+      <article class="card">
+        <div class="card-media"><a href="/goa"><img src="/static/images/goa.jpg" alt="Goa"></a></div>
+        <div class="card-body"><h3>Goa</h3><p>Beaches, nightlife, and fun</p><br><button class="btn btn-secondary" onclick="window.location.href='/goa'">Explore</button></div>
+      </article>
+      <article class="card">
+        <div class="card-media"><a href="/mumbai"><img src="/static/images/mumbai.jpg" alt="Mumbai"></a></div>
+        <div class="card-body"><h3>Mumbai</h3><p>City of dreams and Bollywood vibes</p><br><button class="btn btn-secondary" onclick="window.location.href='/mumbai'">Explore</button></div>
+      </article>
+      <article class="card">
+        <div class="card-media"><a href="/shimla"><img src="/static/images/shimla.jpg" alt="Shimla"></a></div>
+        <div class="card-body"><h3>Shimla</h3><p>Queen of Hills</p><br><br><button class="btn btn-secondary" onclick="window.location.href='/shimla'">Explore</button></div>
+      </article>
+      <article class="card">
+        <div class="card-media"><a href="/chennai"><img src="/static/images/chennai.jpg" alt="Chennai"></a></div>
+        <div class="card-body"><h3>Chennai</h3><p>Gateway to South Indian Culture</p><br><button class="btn btn-secondary" onclick="window.location.href='/chennai'">Explore</button></div>
+      </article>
+      <article class="card">
+        <div class="card-media"><a href="/jaipur"><img src="/static/images/jaipur.jpg" alt="Jaipur"></a></div>
+        <div class="card-body"><h3>Jaipur</h3><p>The pink City of palaces and traditions</p><br><button class="btn btn-secondary" onclick="window.location.href='/jaipur'">Explore</button></div>
+      </article>
+      <article class="card">
+        <div class="card-media"><a href="/delhi"><img src="/static/images/delhi.jpg" alt="Delhi"></a></div>
+        <div class="card-body"><h3>Delhi</h3><p>Where history meets modern India</p><br><button class="btn btn-secondary" onclick="window.location.href='/delhi'">Explore</button></div>
+      </article>
+    </div>
+  </section>
 
-    <!-- Kolkata -->
-    <article class="card">
-      <div class="card-media">
-        <a href="/kolkata">
-  <img src="/static/images/kolkata.jpg" alt="Kolkata">
-      </a>
-      </div>
-      <div class="card-body">
-        <h3>Kolkata</h3>
-        <p>The city of joy</p>
-        <br><br>
-        <button class="btn btn-secondary" onclick="window.location.href='/kolkata'">Explore</button>
-      </div>
-    </article>
-
-    <!-- Varanasi -->
-    <article class="card">
-      <div class="card-media">
-      <a href="/varanasi">
-  <img src="/static/images/varanasi.jpg" alt="Varanasi">
-        </a>
-      </div>
-      <div class="card-body">
-        <h3>Varanasi</h3>
-        <p>Where spirituality meets eternity</p>
-        <br>
-        <button class="btn btn-secondary" onclick="window.location.href='/varanasi'">Explore</button>
-      </div>
-    </article>
-
-    <!-- Goa -->
-    <article class="card">
-      <div class="card-media">
-        <a href="/goa">
-  <img src="/static/images/goa.jpg" alt="Goa">
-        </a>
-      </div>
-      <div class="card-body">
-        <h3>Goa</h3>
-        <p>Beaches, nightlife, and fun</p>
-        <br>
-        <button class="btn btn-secondary" onclick="window.location.href='/goa'">Explore</button>    
-      </div>
-    </article>
-
-      <!-- Mumbai -->
-    <article class="card">
-      <div class="card-media">
-        <a href="/mumbai">
-  <img src="/static/images/mumbai.jpg" alt="Mumbai">
-        </a>
-      </div>
-      <div class="card-body">
-        <h3>Mumbai</h3>
-        <p>City of dreams and Bollywood vibes</p>
-        <br>
-        <button class="btn btn-secondary" onclick="window.location.href='/mumbai'">Explore</button>
-      </div>
-    </article>
-
-     <!-- Shimla -->
-    <article class="card">
-      <div class="card-media">
-        <a href="/shimla">
-  <img src="/static/images/shimla.jpg" alt="Shimla">
-  </a>
-      </div>
-      <div class="card-body">
-        <h3>Shimla</h3>
-        <p>Queen of Hills</p>
-        <br><br>
-        <button class="btn btn-secondary" onclick="window.location.href='/shimla'">Explore</button>
-      </div>
-    </article>
-
-    <!-- Chennai -->
-    <article class="card">
-      <div class="card-media">
-        <a href="/chennai">
-  <img src="/static/images/chennai.jpg" alt="Chennai">
-        </a>
-      </div>
-      <div class="card-body">
-        <h3>Chennai</h3>
-        <p>Gateway to South Indian Culture</p>
-        <br>
-        <button class="btn btn-secondary" onclick="window.location.href='/chennai'">Explore</button>
-      </div>
-    </article>
-
-    <!-- Jaipur -->
-    <article class="card">
-      <div class="card-media">
-        <a href="/jaipur">
-  <img src="/static/images/jaipur.jpg" alt="Jaipur">
-      </a>
-      </div>
-      <div class="card-body">
-        <h3>Jaipur</h3>
-        <p>The pink City of palaces and traditions</p>
-        <br>
-        <button class="btn btn-secondary" onclick="window.location.href='/jaipur'">Explore</button>
-      </div>
-    </article>
-
-    <!-- Delhi -->
-    <article class="card">
-      <div class="card-media">
-        <a href="/delhi">
-  <img src="/static/images/delhi.jpg" alt="Delhi">
-        </a>
-      </div>
-      <div class="card-body">
-        <h3>Delhi</h3>
-        <p>Where history meets modern India</p>
-        <br>
-        <button class="btn btn-secondary" onclick="window.location.href='/delhi'">Explore</button>
-      </div>
-    </article>
-
-
-  </div>
-</section>
-
-
-  <!-- Blog -->
   <!-- Travel Tips & Guides -->
-<section id="travel-guides" class="guides container">
-  <br><br>
+  <section id="travel-guides" class="guides container">
+    <div class="guide-grid">
+      <a href="/tips" class="guide-card"><h3>How to Pack Light for City Trips</h3><p>Essentials and space-saving tips for smarter travel.</p></a>
+      <a href="/time" class="guide-card"><h3>Best Times to Visit Shimla</h3><p>Seasonal highlights and crowd tips.</p></a>
+      <a href="/market" class="guide-card"><h3>Top 10 Food Spots in Kolkata</h3><p>Local favorites and bustling markets.</p></a>
+    </div>
+  </section>
 
-  <div class="guide-grid">
+  <!-- Travel Booking Section -->
+  <section id="booking" class="container booking">
+    <h2 style="text-align:center; margin-bottom:20px;">Book Now</h2>
+    <div class="booking-card" style="max-width:850px; margin:auto; padding:30px; border-radius:16px; background:linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); box-shadow:0 6px 20px rgba(0,0,0,0.15); transition:transform 0.3s;">
+      <div class="services" style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-bottom:25px;">
+        <button type="button" class="service-btn">✈️ Flights</button>
+        <button type="button" class="service-btn">🚆 Trains</button>
+        <button type="button" class="service-btn">🚌 Buses</button>
+      </div>
 
-    <!-- Pack Light -->
-    <a href="/tips" class="guide-card">
-      <h3>How to Pack Light for City Trips</h3>
-      <p>Essentials and space-saving tips for smarter travel.</p>
-    </a>
+      <form class="booking-form" style="display:grid; gap:16px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <select id="fromInput" required>
+            <option value="">From</option>
+            <option value="Kolkata">Kolkata</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Goa">Goa</option>
+            <option value="Jaipur">Jaipur</option>
+            <option value="Shimla">Shimla</option>
+            <option value="Varanasi">Varanasi</option>
+          </select>
 
-    <!-- Shimla Best Time -->
-    <a href="/time" class="guide-card">
-      <h3>Best Times to Visit Shimla</h3>
-      <p>Seasonal highlights and crowd tips.</p>
-    </a>
+          <button type="button" id="swapBtn" class="btn btn-secondary">⇄</button>
 
-    <!-- Kolkata Food -->
-    <a href="/market" class="guide-card">
-      <h3>Top 10 Food Spots in Kolkata</h3>
-      <p>Local favorites and bustling markets.</p>
-    </a>
+          <select id="toInput" required>
+            <option value="">To</option>
+            <option value="Kolkata">Kolkata</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Goa">Goa</option>
+            <option value="Jaipur">Jaipur</option>
+            <option value="Shimla">Shimla</option>
+            <option value="Varanasi">Varanasi</option>
+          </select>
+        </div>
 
-  </div>
-</section>
+        <input type="date" required>
+        <select>
+          <option>1 Traveler</option>
+          <option>2 Travelers</option>
+          <option>3 Travelers</option>
+        </select>
+        <select>
+          <option>Economy</option>
+          <option>Business</option>
+        </select>
 
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+
+      <div class="fare-types" style="margin-top:20px; display:flex; flex-wrap:wrap; gap:16px; justify-content:center;">
+        <label><input type="radio" name="fare" checked> Regular</label>
+        <label><input type="radio" name="fare"> Armed Forces</label>
+        <label><input type="radio" name="fare"> Student</label>
+        <label><input type="radio" name="fare"> Senior</label>
+        <label><input type="radio" name="fare"> Doctors & Nurses</label>
+      </div>
+    </div>
+  </section>
+
+  <!-- Swap From ↔ To + Settings + Recommender -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const fromSelect = document.getElementById("fromInput");
+      const toSelect = document.getElementById("toInput");
+      const swapBtn = document.getElementById("swapBtn");
+      swapBtn.addEventListener("click", () => {
+        const temp = fromSelect.value;
+        fromSelect.value = toSelect.value;
+        toSelect.value = temp;
+      });
+
+      // Settings menu
+      const settingsBtn = document.getElementById("settings-btn");
+      const settingsMenu = document.getElementById("settings-menu");
+      const darkToggle = document.getElementById("dark-toggle");
+      const zoomInBtn = document.getElementById("zoom-in");
+      const zoomOutBtn = document.getElementById("zoom-out");
+      let zoomLevel = 1;
+
+      settingsBtn.addEventListener("click", () => {
+        settingsMenu.style.display = settingsMenu.style.display === "block" ? "none" : "block";
+      });
+      document.addEventListener("click", (e) => {
+        if (!settingsBtn.contains(e.target) && !settingsMenu.contains(e.target)) {
+          settingsMenu.style.display = "none";
+        }
+      });
+      darkToggle.addEventListener("change", () => {
+        document.body.classList.toggle("dark-mode", darkToggle.checked);
+      });
+      zoomInBtn.addEventListener("click", () => {
+        zoomLevel += 0.1;
+        document.body.style.transform = `scale(${zoomLevel})`;
+        document.body.style.transformOrigin = "0 0";
+      });
+      zoomOutBtn.addEventListener("click", () => {
+        zoomLevel = Math.max(0.5, zoomLevel - 0.1);
+        document.body.style.transform = `scale(${zoomLevel})`;
+        document.body.style.transformOrigin = "0 0";
+      });
+
+      // ✅ Recommendation System
+      const cities = {
+        Kolkata: ["Varanasi", "Jaipur", "Shimla", "Delhi", "Goa"],
+        Mumbai: ["Goa", "Delhi", "Chennai", "Jaipur", "Shimla"],
+        Delhi: ["Jaipur", "Varanasi", "Shimla", "Mumbai", "Goa"],
+        Chennai: ["Goa", "Mumbai", "Shimla", "Jaipur", "Kolkata"],
+        Goa: ["Mumbai", "Chennai", "Delhi", "Shimla", "Varanasi"],
+        Jaipur: ["Delhi", "Kolkata", "Varanasi", "Shimla", "Goa"],
+        Shimla: ["Jaipur", "Varanasi", "Delhi", "Goa", "Mumbai"],
+        Varanasi: ["Kolkata", "Jaipur", "Delhi", "Shimla", "Goa"]
+      };
+
+      const goBtn = document.getElementById("go");
+      const cityInput = document.getElementById("city-input");
+      const topnInput = document.getElementById("topn-input");
+      const resultsDiv = document.getElementById("results");
+      const statusDiv = document.getElementById("status");
+
+      goBtn.addEventListener("click", () => {
+        const city = cityInput.value.trim();
+        const topN = parseInt(topnInput.value);
+        resultsDiv.innerHTML = "";
+
+        if (!city) {
+          statusDiv.textContent = "Please enter a city name.";
+          return;
+        }
+
+        const cityKey = city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
+        if (!cities[cityKey]) {
+          statusDiv.textContent = "City not found. Try another city.";
+          return;
+        }
+
+        statusDiv.textContent = "Recommendations:";
+        const recommended = cities[cityKey].slice(0, topN);
+        recommended.forEach(c => {
+          const card = document.createElement("div");
+          card.className = "city-card";
+          card.textContent = c;
+          card.onclick = () => window.location.href = `/${c.toLowerCase()}`;
+          resultsDiv.appendChild(card);
+        });
+      });
+    });
+  </script>
 
   <!-- Newsletter -->
   <section id="newsletter" class="newsletter container">
@@ -274,19 +400,5 @@
     </div>
     <div class="container" style="margin-top:16px; text-align:center; opacity:0.8; font-size:0.9rem">© 2025 City Recommender</div>
   </footer>
-
-  <!-- Chat Bot -->
-  <div id="chat-bot">
-    <button id="chat-toggle" aria-label="Open Chat">💬</button>
-    <div id="chat-window" class="hidden">
-      <h3>Tour Bot (demo)</h3>
-      <div class="messages">
-        <p>Hello! I’m a dummy bot for now.</p>
-      </div>
-      <input type="text" placeholder="Type a message…" disabled>
-    </div>
-  </div>
-
-  <script src="/static/main.js"></script>
 </body>
 </html>
