@@ -257,6 +257,47 @@ body.dark-mode .card-body h3, body.dark-mode .card-body p{color:var(--text); tex
   background-color: #0056b3;
 }
 
-/* ---------- Kolkata Page Specific Styles ---------- */
+/* Travel Guides section */
+.guides h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #0f172a;
+}
+
+.guide-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+/* clickable text-only cards */
+.guide-card {
+  display: block;
+  padding: 1.2rem 1.4rem;
+  background: #ffffff;
+  border-left: 5px solid #2563eb; /* blue accent */
+  border-radius: 8px;
+  text-decoration: none;
+  color: #0f172a;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.guide-card h3 {
+  margin: 0 0 0.3rem;
+  font-size: 1.2rem;
+}
+
+.guide-card p {
+  margin: 0;
+  color: #6b7280; /* muted gray text */
+  font-size: 0.95rem;
+}
+
+.guide-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-left-color: #1d4ed8; /* darker blue on hover */
+}
+
 
 

@@ -166,6 +166,23 @@ def jaipur_page():
 def delhi_page():
     return send_from_directory(app.static_folder, 'delhipage.html')
 
+@app.route('/tips')
+def tips_page():
+    return send_from_directory(app.static_folder, 'tips.html')
+
+@app.route('/time')
+def time_page():
+    return send_from_directory(app.static_folder, 'time.html')
+
+@app.route('/market')
+def market_page():
+    return send_from_directory(app.static_folder, 'market.html')
+
+@app.route('/index')
+def index_page():
+    return send_from_directory(app.static_folder, 'index.html')
+
+
 
 
 

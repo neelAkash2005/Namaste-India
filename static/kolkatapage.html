@@ -16,23 +16,36 @@
 
     /* Hero header */
     header {
-      background: url('/static/images/kolkata-banner.jpg') center/cover no-repeat;
-      height: 120vh;
+      position: relative;
+      height: 90vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      color: #005a99;      /* CHANGED from white to blue */
+      color: #005a99;
       padding: 0 1rem;
+      overflow: hidden;
     }
-   /* Make header text clearly visible over the image */
-  header h1,
-  header p {
-   color: #ffffff;                  /* bright white text */
-   text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);  /* dark shadow for contrast */
-   font-weight: 600;                /* a bit bolder */
-}
+
+    header video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* behaves like background-size: cover */
+      z-index: -1; /* keep video in background */
+    }
+
+    header h1,
+    header p {
+      color: #ffffff;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+      font-weight: 600;
+      position: relative;
+      z-index: 1; /* keep text above video */
+    }
 
     /* --- Sections --- */
     section {
@@ -109,9 +122,18 @@
 </head>
 <body>
 
-  <!-- Hero -->
+     <!-- Hero -->
   <header>
-    <h1>Explore Kolkata</h1>
+    <!-- Video Background -->
+    <video autoplay muted loop>
+      <source src="static/videos/kolkata.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+
+  <!-- Hero Text -->
+   
+   <h1>Explore Kolkata</h1>
     <p>The cultural capital of India—where history, art, and street food create an unforgettable experience.</p>
   </header>
 
@@ -172,7 +194,7 @@
   <!-- Footer -->
   <footer>
     <p style="color: black;"><b>Discover the soul of Kolkata &nbsp;•&nbsp; Culture • Cuisine • Heritage</b></p>
-    <a class="back-btn" href="index.html">⬅ Back to Home</a>
+    <a class="back-btn" href="/index">⬅ Back to Home</a>
   </footer>
 
 </body>

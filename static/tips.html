@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Pack Light — City Trips: Essentials & Space-Saving Tips</title>
+  <meta name="description" content="Simple, practical guide to packing light for city trips. Checklist, space-saving tips, capsule outfits and printable checklist.">
+  <style>
+    :root{--accent:#2563eb;--muted:#6b7280;--bg:#f8fafc;--card:#ffffff}
+    *{box-sizing:border-box}
+    body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin:0; background:var(--bg); color:#0f172a; line-height:1.45}
+    header{background:linear-gradient(90deg,#eef2ff, #ffffff); padding:28px 20px; border-bottom:1px solid rgba(15,23,42,0.04)}
+    .container{max-width:980px;margin:24px auto;padding:0 18px}
+    h1{font-size:1.6rem;margin:0 0 6px}
+    p.lead{color:var(--muted); margin:0 0 12px}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:20px}
+    .card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 6px 18px rgba(15,23,42,0.06)}
+    .tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+    .tip{padding:12px;border-radius:8px;background:linear-gradient(180deg,#fff,#fbfdff);border:1px solid rgba(15,23,42,0.03)}
+    ul.checklist{list-style:none;padding:0;margin:0}
+    ul.checklist li{display:flex;align-items:flex-start;padding:8px 0;border-bottom:1px dashed rgba(15,23,42,0.04)}
+    .chk{width:22px;height:22px;border-radius:6px;border:2px solid var(--muted);display:inline-grid;place-items:center;margin-right:12px;flex:0 0 22px}
+    .small{font-size:0.9rem;color:var(--muted)}
+    .controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    button.btn{background:var(--accent);color:#fff;border:none;padding:9px 12px;border-radius:8px;cursor:pointer;font-weight:600}
+    button.ghost{background:transparent;border:1px solid rgba(15,23,42,0.06);color:var(--muted)}
+    .capsule{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .pill{background:#f1f5f9;padding:8px 10px;border-radius:999px;font-weight:600;color:#0f172a}
+    .accordion{margin-top:12px}
+    .acc-item{border-top:1px solid rgba(15,23,42,0.04)}
+    .acc-head{padding:12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+    .acc-body{padding:0 12px 14px;display:none;color:var(--muted)}
+    footer{font-size:0.85rem;color:var(--muted);padding:28px 0;text-align:center}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+    /* print-friendly */
+    @media print{body{background:#fff}header,button{display:none}.container{max-width:100%} .card{box-shadow:none;border-radius:0}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Pack Light — City Trips</h1>
+      <p class="lead">Essentials and space-saving tips to travel smart — pack less, see more.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="grid">
+      <section class="card">
+        <h2 style="margin-top:0">Quick guide</h2>
+        <p class="small">This page gives a compact checklist, minimal capsule outfit ideas, and tactical space-saving hacks so you can travel lighter without missing the essentials.</p>
+
+        <h3 style="margin-top:18px">Core packing philosophy</h3>
+        <ul class="small">
+          <li>1. Choose versatile items that work for day/night.</li>
+          <li>2. Plan outfits ahead — avoid "just in case" items.</li>
+          <li>3. Use packing techniques (roll, bundle, compression).</li>
+        </ul>
+
+        <h3 style="margin-top:18px">Essentials (one-bag friendly)</h3>
+        <div class="tips" style="margin-top:8px">
+          <div class="tip"><strong>1 small daypack</strong><div class="small">For walking and souvenirs</div></div>
+          <div class="tip"><strong>1 versatile jacket</strong><div class="small">Waterproof or light puffer</div></div>
+          <div class="tip"><strong>2–3 tops</strong><div class="small">Mix of t-shirts & 1 smart shirt</div></div>
+          <div class="tip"><strong>2 bottoms</strong><div class="small">Jeans + lightweight trousers</div></div>
+          <div class="tip"><strong>1 pair shoes</strong><div class="small">Comfortable walking pair</div></div>
+          <div class="tip"><strong>Minimal toiletries</strong><div class="small">Travel-size + solid soap/shampoo</div></div>
+        </div>
+
+        <div style="display:flex;gap:10px;margin-top:14px;align-items:center;flex-wrap:wrap">
+          <button class="btn" onclick="document.getElementById('checklist').classList.toggle('hidden');toggleDisplay()">Show / Hide Checklist</button>
+          <button class="ghost" onclick="window.print()">Print checklist</button>
+        </div>
+
+        <div id="checklist" style="margin-top:12px">
+          <ul class="checklist" id="list">
+            <li><label><input type="checkbox" class="chkbox"/> <span>Passport / ID / Tickets</span></label></li>
+            <li><label><input type="checkbox" class="chkbox"/> <span>Wallet (cards, minimal cash)</span></label></li>
+            <li><label><input type="checkbox" class="chkbox"/> <span>Phone + charger + power bank</span></label></li>
+            <li><label><input type="checkbox" class="chkbox"/> <span>1 versatile jacket</span></label></li>
+            <li><label><input type="checkbox" class="chkbox"/> <span>2–3 tops</span></label></li>
+            <li><label><input type="checkbox" class="chkbox"/> <span>2 bottoms / 1 bottom + skirt</span></label></li>
+            <li><label><input type="checkbox" class="chkbox"/> <span>Underwear & socks (pack 1.5 days extra)</span></label></li>
+            <li><label><input type="checkbox" class="chkbox"/> <span>1 pair comfortable shoes</span></label></li>
+            <li><label><input type="checkbox" class="chkbox"/> <span>Toiletry kit (compressed)</span></label></li>
+            <li><label><input type="checkbox" class="chkbox"/> <span>Medication & small first-aid</span></label></li>
+            <li><label><input type="checkbox" class="chkbox"/> <span>Reusable water bottle</span></label></li>
+            <li><label><input type="checkbox" class="chkbox"/> <span>Copies of important documents (photo)</span></label></li>
+          </ul>
+        </div>
+
+        <h3 style="margin-top:18px">Packing techniques</h3>
+        <ol class="small">
+          <li><strong>Roll clothes</strong> — saves space and reduces wrinkles.</li>
+          <li><strong>Bundle packing</strong> — wrap smaller items around a core piece.</li>
+          <li><strong>Compression bags</strong> — useful for bulky sweaters but avoid over-compressing delicate fabrics.</li>
+          <li><strong>Use packing cubes</strong> — keep outfits together, speeds unpacking.</li>
+        </ol>
+
+        <div style="margin-top:16px">
+          <h3>Capsule outfit ideas</h3>
+          <div class="capsule">
+            <span class="pill">T-shirt + jeans + sneakers</span>
+            <span class="pill">Shirt + chinos + loafers</span>
+            <span class="pill">Dress + light jacket</span>
+            <span class="pill">Scarf (styling + warmth)</span>
+          </div>
+        </div>
+
+        <div class="accordion" id="accordion">
+          <div class="acc-item">
+            <div class="acc-head" onclick="toggleAcc(0)">
+              <strong>Laundry on the go</strong>
+              <span class="small">save space by washing</span>
+            </div>
+            <div class="acc-body">
+              Pack a travel sink soap or laundry sheet and dry overnight — most city trips let you wash 1–2 items and reuse.
+            </div>
+          </div>
+
+          <div class="acc-item">
+            <div class="acc-head" onclick="toggleAcc(1)">
+              <strong>Minimising electronics</strong>
+              <span class="small">only take what you will use</span>
+            </div>
+            <div class="acc-body">
+              A phone can replace camera + maps + guidebooks. If you take a camera, choose a single lens to stay light.
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <aside class="card" style="min-width:260px;">
+        <h3 style="margin-top:0">Fast checklist & tips</h3>
+        <p class="small">Use this mini checklist to pack in 15 minutes.</p>
+        <ul class="checklist small" style="margin-top:8px">
+          <li><span class="chk">✓</span> Passport / ID</li>
+          <li><span class="chk">✓</span> Wallet & cards</li>
+          <li><span class="chk">✓</span> Phone, charger</li>
+          <li><span class="chk">✓</span> One jacket</li>
+          <li><span class="chk">✓</span> One outfit per day (mixable)</li>
+        </ul>
+
+        <h4 style="margin-top:14px">Space-saving hacks</h4>
+        <ol class="small">
+          <li>Layer bulk on travel day (jacket + shoes).</li>
+          <li>Wear bulkiest shoes; pack flats or sandals if needed.</li>
+          <li>Use small zip pouches for chargers & cables.</li>
+        </ol>
+
+        <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn" onclick="selectAll()">Check all</button>
+          <button class="ghost" onclick="clearAll()">Clear</button>
+        </div>
+
+        <hr style="margin:16px 0 12px 0;border:none;border-top:1px solid rgba(15,23,42,0.04)">
+        <p class="small">Tip: Plan outfits by day in your phone notes so you only pack what you’ll wear.</p>
+      </aside>
+    </div>
+
+    <footer class="card" style="margin-top:18px">
+      <strong>Printable checklist:</strong> click <button class="ghost" onclick="window.print()">Print</button> to get a paper copy.
+    </footer>
+  </main>
+
+  <script>
+    function toggleAcc(i){
+      const bodies = document.querySelectorAll('.acc-body');
+      bodies[i].style.display = bodies[i].style.display === 'block' ? 'none' : 'block';
+    }
+
+    function selectAll(){ document.querySelectorAll('.chkbox').forEach(c=>c.checked=true); }
+    function clearAll(){ document.querySelectorAll('.chkbox').forEach(c=>c.checked=false); }
+
+    function toggleDisplay(){ const el=document.getElementById('checklist'); el.classList.toggle('hidden'); }
+
+    // accessibility: allow keyboard toggle on accordion heads
+    document.querySelectorAll('.acc-head').forEach((h, idx)=>{
+      h.setAttribute('tabindex', '0');
+      h.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') toggleAcc(idx); });
+    });
+  </script>
+</body>
+</html>

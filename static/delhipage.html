@@ -16,7 +16,7 @@
 
     /* Hero header */
     header {
-      background: url('/static/images/delhi-banner.jpg') center/cover no-repeat;
+      position: relative;
       height: 90vh;
       display: flex;
       flex-direction: column;
@@ -25,12 +25,26 @@
       text-align: center;
       color: #005a99;
       padding: 0 1rem;
+      overflow: hidden;
     }
+
+    header video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* behaves like background-size: cover */
+      z-index: -1; /* keep video in background */
+    }
+
     header h1,
     header p {
       color: #ffffff;
       text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
       font-weight: 600;
+      position: relative;
+      z-index: 1; /* keep text above video */
     }
 
     /* --- Sections --- */
@@ -110,6 +124,13 @@
 
   <!-- Hero -->
   <header>
+    <!-- Video Background -->
+    <video autoplay muted loop>
+      <source src="static/videos/delhi.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <!-- Hero Text -->
     <h1>Explore Delhi</h1>
     <p>The capital city of India—where history, politics, and culture coexist in a vibrant mix.</p>
   </header>
@@ -119,17 +140,17 @@
     <h2>Main Attractions</h2>
     <div class="grid">
       <div class="card">
-        <img src="/static/images/red-fort.jpg" alt="Red Fort">
+        <img src="static/images/red-fort.jpg" alt="Red Fort">
         <h3>Red Fort</h3>
         <p>The iconic 17th-century Mughal fort with stunning architecture and historical significance.</p>
       </div>
       <div class="card">
-        <img src="/static/images/qutub-minar.jpg" alt="Qutub Minar">
+        <img src="static/images/qutub-minar.jpg" alt="Qutub Minar">
         <h3>Qutub Minar</h3>
         <p>A UNESCO World Heritage Site and the tallest brick minaret in the world, dating back to 1193 AD.</p>
       </div>
       <div class="card">
-        <img src="/static/images/india-gate.jpg" alt="India Gate">
+        <img src="static/images/india-gate.jpg" alt="India Gate">
         <h3>India Gate</h3>
         <p>A war memorial honoring Indian soldiers, set amidst lush lawns and fountains.</p>
       </div>
@@ -141,17 +162,17 @@
     <h2>Must-Try Foods</h2>
     <div class="grid">
       <div class="card">
-        <img src="/static/images/chole-bhature.jpg" alt="Chole Bhature">
+        <img src="static/images/chole-bhature.jpg" alt="Chole Bhature">
         <h3>Chole Bhature</h3>
         <p>Spicy chickpea curry served with deep-fried fluffy bread—a Delhi breakfast classic.</p>
       </div>
       <div class="card">
-        <img src="/static/images/butter-chicken.jpg" alt="Butter Chicken">
+        <img src="static/images/butter-chicken.jpg" alt="Butter Chicken">
         <h3>Butter Chicken</h3>
         <p>Rich, creamy chicken curry with tomato-based gravy—originated in Delhi and loved nationwide.</p>
       </div>
       <div class="card">
-        <img src="/static/images/paranthe-wali-gali.jpg" alt="Paranthe Wali Gali">
+        <img src="static/images/paranthe-wali-gali.jpg" alt="Paranthe Wali Gali">
         <h3>Paranthe Wali Gali</h3>
         <p>A famous street for stuffed parathas with various fillings, a must-visit foodie spot.</p>
       </div>
@@ -170,7 +191,7 @@
   <!-- Footer -->
   <footer>
     <p style="color: black;"><b>Discover the spirit of Delhi &nbsp;•&nbsp; Heritage • Culture • Cuisine</b></p>
-    <a class="back-btn" href="index.html">⬅ Back to Home</a>
+    <a class="back-btn" href="/index">⬅ Back to Home</a>
   </footer>
 
 </body>
