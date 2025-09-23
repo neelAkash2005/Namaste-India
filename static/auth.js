@@ -1,6 +1,57 @@
 document.addEventListener('DOMContentLoaded', () => {
   const loginForm = document.getElementById('login-form');
   const signupForm = document.getElementById('signup-form');
+  const passwordInput = document.querySelector('#signup-form input[name="password"], #login-form input[name="password"]');
+  const resultEl = document.createElement('p');
+
+  // Attach result paragraph just below the password field (only if passwordInput exists)
+  if (passwordInput) {
+    resultEl.id = 'password-strength';
+    resultEl.style.fontWeight = 'bold';
+    passwordInput.insertAdjacentElement('afterend', resultEl);
+
+    passwordInput.addEventListener('input', () => {
+      checkStrength(passwordInput.value);
+    });
+  }
+
+  function checkStrength(password) {
+    const lengthError = password.length < 8;
+    const uppercaseError = !/[A-Z]/.test(password);
+    const lowercaseError = !/[a-z]/.test(password);
+    const digitError = !/[0-9]/.test(password);
+    const specialCharError = !/[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    const score = 5 - [
+      lengthError,
+      uppercaseError,
+      lowercaseError,
+      digitError,
+      specialCharError
+    ].filter(Boolean).length;
+
+    let resultText = "";
+    let color = "";
+
+    if (!password) {
+      resultEl.textContent = "";
+      return;
+    }
+
+    if (score === 5) {
+      resultText = "Strong Password";
+      color = "green";
+    } else if (score >= 3) {
+      resultText = "Medium Password. Use special characters and numbers.";
+      color = "orange";
+    } else {
+      resultText = "Weak Password. Consider using a longer password with a mix of characters and numbers.";
+      color = "red";
+    }
+
+    resultEl.textContent = resultText;
+    resultEl.style.color = color;
+  }
 
   async function postJson(url, data){
     const resp = await fetch(url, {

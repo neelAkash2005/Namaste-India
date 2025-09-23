@@ -37,8 +37,8 @@ app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'dev-secret-please-change')
 # WebSecurity integration
 # ---------------------------
 # Import init function from WebSecurity.py and initialize
-from WebSecurity import init_security
-init_security(app)
+
+
 
 MODEL_PATH = 'model.pkl'
 
