@@ -32,6 +32,14 @@ def hash_password(pw):
 app = Flask(__name__, static_folder='static')
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'dev-secret-please-change')
 
+
+# ---------------------------
+# WebSecurity integration
+# ---------------------------
+# Import init function from WebSecurity.py and initialize
+from WebSecurity import init_security
+init_security(app)
+
 MODEL_PATH = 'model.pkl'
 
 # ---------------------------
