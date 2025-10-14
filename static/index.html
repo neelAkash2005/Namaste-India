@@ -45,16 +45,71 @@
     }
 
     .settings-menu {
-      display: none;
       position: absolute;
       right: 10px;
       top: 50px;
       background: #fff;
       border: 1px solid #ccc;
       border-radius: 8px;
-      padding: 10px;
+      padding: 15px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       z-index: 1000;
+      min-width: 180px;
+    }
+    
+    .settings-menu.hidden {
+      display: none;
+    }
+    
+    .settings-menu label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 5px 0;
+      font-size: 14px;
+    }
+    
+    .settings-menu .zoom-controls {
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+      padding-top: 10px;
+      border-top: 1px solid #eee;
+    }
+    
+    .settings-menu .zoom-controls button {
+      flex: 1;
+      padding: 6px 10px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .settings-menu .zoom-controls button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    .settings-menu .zoom-controls button:active {
+      transform: translateY(0);
+    }
+    
+    #settings-btn {
+      background: transparent;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 5px 10px;
+      transition: transform 0.2s;
+    }
+    
+    #settings-btn:hover {
+      transform: rotate(45deg);
     }
 
     body.dark-mode {
@@ -67,25 +122,71 @@
       background-color: #1e1e1e !important;
       color: #e0e0e0 !important;
     }
+    
+    body.dark-mode .settings-menu {
+      background: #2a2a2a !important;
+      border-color: #444 !important;
+      color: #e0e0e0 !important;
+    }
+    
+    body.dark-mode .settings-menu .zoom-controls {
+      border-top-color: #444 !important;
+    }
 
     /* Recommendation results */
     .results {
-      margin-top: 15px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
     }
     .city-card {
-      padding: 8px 12px;
-      border-radius: 10px;
-      background-color: #f0f0f0;
+      padding: 15px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      text-align: left;
+      font-size: 0.9rem;
+      line-height: 1.6;
     }
     .city-card:hover {
-      background-color: #ff7a50;
-      color: white;
-      transform: scale(1.05);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+      background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    }
+    .city-card strong {
+      font-size: 1.1rem;
+      display: block;
+      margin-bottom: 8px;
+    }
+    .form {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+    }
+    .form input {
+      flex: 1;
+      min-width: 150px;
+      padding: 10px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .form button {
+      padding: 10px 20px;
+      white-space: nowrap;
+    }
+    .status {
+      padding: 10px;
+      background: #f0f8ff;
+      border-radius: 8px;
+      margin: 10px 0;
+      font-size: 0.95rem;
+      color: #333;
     }
   </style>
 </head>
@@ -132,14 +233,15 @@
         </div>
       </div>
       <div class="hero-card" id="recommender">
-        <h2>City Recommender</h2>
-        <p class="muted">Get tailored suggestions in seconds</p>
+        <h2>🌍 City Recommender</h2>
+        <p class="muted">Get personalized travel suggestions based on your preferred month and trip duration</p>
+        
         <div class="form">
-          <input id="city-input" placeholder="Enter city name" aria-label="City name">
-          <input id="topn-input" type="number" value="5" min="1" max="20" aria-label="Top N">
-          <button id="go" class="btn btn-primary">Recommend</button>
+          <input id="month-input" placeholder="Enter month (e.g., October, December)" aria-label="Month" style="flex: 2;">
+          <input id="duration-input" type="number" placeholder="Trip duration (1-14 days)" min="1" max="14" aria-label="Duration" style="flex: 1.5;">
+          <button id="go" class="btn btn-primary">🔍 Find Destinations</button>
         </div>
-        <div id="status" class="status">Ready</div>
+        <div id="status" class="status">✨ Enter a month and duration to discover the best cities for your trip</div>
         <div id="results" class="results"></div>
       </div>
     </div>
@@ -270,101 +372,29 @@
 
       <div class="fare-types" style="margin-top:20px; display:flex; flex-wrap:wrap; gap:16px; justify-content:center;">
         <label><input type="radio" name="fare" checked> Regular</label>
-        <label><input type="radio" name="fare"> Armed Forces</label>
         <label><input type="radio" name="fare"> Student</label>
-        <label><input type="radio" name="fare"> Senior</label>
-        <label><input type="radio" name="fare"> Doctors & Nurses</label>
+        <label><input type="radio" name="fare"> Senior Citizen</label>
+        <label><input type="radio" name="fare"> Armed Forces</label>
       </div>
     </div>
   </section>
 
-  <!-- Swap From ↔ To + Settings + Recommender + Login Display -->
+  <!-- Settings + Auth UI Script -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       // Swap button
       const fromSelect = document.getElementById("fromInput");
       const toSelect = document.getElementById("toInput");
       const swapBtn = document.getElementById("swapBtn");
-      swapBtn.addEventListener("click", () => {
-        const temp = fromSelect.value;
-        fromSelect.value = toSelect.value;
-        toSelect.value = temp;
-      });
-
-      // Settings menu
-      const settingsBtn = document.getElementById("settings-btn");
-      const settingsMenu = document.getElementById("settings-menu");
-      const darkToggle = document.getElementById("dark-toggle");
-      const zoomInBtn = document.getElementById("zoom-in");
-      const zoomOutBtn = document.getElementById("zoom-out");
-      let zoomLevel = 1;
-
-      settingsBtn.addEventListener("click", () => {
-        settingsMenu.style.display = settingsMenu.style.display === "block" ? "none" : "block";
-      });
-      document.addEventListener("click", (e) => {
-        if (!settingsBtn.contains(e.target) && !settingsMenu.contains(e.target)) {
-          settingsMenu.style.display = "none";
-        }
-      });
-      darkToggle.addEventListener("change", () => {
-        document.body.classList.toggle("dark-mode", darkToggle.checked);
-      });
-      zoomInBtn.addEventListener("click", () => {
-        zoomLevel += 0.1;
-        document.body.style.transform = `scale(${zoomLevel})`;
-        document.body.style.transformOrigin = "0 0";
-      });
-      zoomOutBtn.addEventListener("click", () => {
-        zoomLevel = Math.max(0.5, zoomLevel - 0.1);
-        document.body.style.transform = `scale(${zoomLevel})`;
-        document.body.style.transformOrigin = "0 0";
-      });
-
-      // Recommendation System
-      const cities = {
-        Kolkata: ["Varanasi", "Jaipur", "Shimla", "Delhi", "Goa"],
-        Mumbai: ["Goa", "Delhi", "Chennai", "Jaipur", "Shimla"],
-        Delhi: ["Jaipur", "Varanasi", "Shimla", "Mumbai", "Goa"],
-        Chennai: ["Goa", "Mumbai", "Shimla", "Jaipur", "Kolkata"],
-        Goa: ["Mumbai", "Chennai", "Delhi", "Shimla", "Varanasi"],
-        Jaipur: ["Delhi", "Kolkata", "Varanasi", "Shimla", "Goa"],
-        Shimla: ["Jaipur", "Varanasi", "Delhi", "Goa", "Mumbai"],
-        Varanasi: ["Kolkata", "Jaipur", "Delhi", "Shimla", "Goa"]
-      };
-
-      const goBtn = document.getElementById("go");
-      const cityInput = document.getElementById("city-input");
-      const topnInput = document.getElementById("topn-input");
-      const resultsDiv = document.getElementById("results");
-      const statusDiv = document.getElementById("status");
-
-      goBtn.addEventListener("click", () => {
-        const city = cityInput.value.trim();
-        const topN = parseInt(topnInput.value);
-        resultsDiv.innerHTML = "";
-
-        if (!city) {
-          statusDiv.textContent = "Please enter a city name.";
-          return;
-        }
-
-        const cityKey = city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
-        if (!cities[cityKey]) {
-          statusDiv.textContent = "City not found. Try another city.";
-          return;
-        }
-
-        statusDiv.textContent = "Recommendations:";
-        const recommended = cities[cityKey].slice(0, topN);
-        recommended.forEach(c => {
-          const card = document.createElement("div");
-          card.className = "city-card";
-          card.textContent = c;
-          card.onclick = () => window.location.href = `/${c.toLowerCase()}`;
-          resultsDiv.appendChild(card);
+      if (swapBtn) {
+        swapBtn.addEventListener("click", () => {
+          const temp = fromSelect.value;
+          fromSelect.value = toSelect.value;
+          toSelect.value = temp;
         });
-      });
+      }
+
+      // NOTE: Recommender logic is handled by main.js, not here!
 
       //  Auth UI Update and Logout
       const authArea = document.getElementById('auth-area');
@@ -422,7 +452,7 @@
   </section>
 
  <!-- Chatbot Toggle Button  -->
-<div id="chatbot-toggle">☁️ Need Help?</div>
+<div id="chatbot-toggle" style="color: blueviolet">💡 Need Help?</div>
 
 <!-- Chatbot Widget (Hidden by default) -->
 <div id="chatbot">
@@ -603,7 +633,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .then(res => res.json())
     .then(data => addMessage(data.reply, "bot"))
-    .catch(() => addMessage("❌ Error connecting to chatbot.", "bot"));
+    .catch(() => addMessage(" Error connecting to chatbot.", "bot"));
   }
 
   sendBtn.addEventListener("click", sendMessage);
@@ -651,5 +681,210 @@ document.addEventListener("DOMContentLoaded", () => {
 
     <div class="container" style="margin-top:16px; text-align:center; opacity:0.8; font-size:0.9rem">© 2025 City Recommender</div>
   </footer>
+  
+  <!-- Main JavaScript - Embedded for reliability -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      console.log(' Main script starting...');
+      
+      // Mobile nav toggle
+      const mobileToggle = document.getElementById('mobile-nav-toggle');
+      if (mobileToggle) {
+        mobileToggle.addEventListener('click', () => {
+          const nav = document.querySelector('.main-nav');
+          if (nav) nav.classList.toggle('open');
+        });
+      }
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', function (e) {
+          const href = this.getAttribute('href');
+          if (href.length > 1) {
+            e.preventDefault();
+            const el = document.querySelector(href);
+            if (el) el.scrollIntoView({behavior: 'smooth', block: 'start'});
+          }
+        });
+      });
+
+      /* ---------- Recommender ---------- */
+      console.log(' Setting up recommender...');
+      
+      const monthInput = document.getElementById('month-input');
+      const durationInput = document.getElementById('duration-input');
+      const go = document.getElementById('go');
+      const status = document.getElementById('status');
+      const results = document.getElementById('results');
+
+      console.log('Elements found:', {
+        monthInput: !!monthInput,
+        durationInput: !!durationInput,
+        go: !!go,
+        status: !!status,
+        results: !!results
+      });
+
+      // Safety check - ensure all elements exist
+      if (!monthInput || !durationInput || !go || !status || !results) {
+        console.error('❌ Recommender elements not found!');
+        return;
+      }
+
+      console.log(' All elements found! Adding click listener...');
+
+      go.addEventListener('click', async function() {
+        console.log(' BUTTON CLICKED!');
+        
+        const month = monthInput.value.trim();
+        const duration = durationInput.value.trim();
+      
+        console.log('Search params:', { month, duration });
+        
+        if (!month) {
+          status.textContent = '⚠️ Please enter a month to get recommendations.';
+          return;
+        }
+        
+        status.textContent = '🔍 Finding the best destinations for you...';
+        results.innerHTML = '';
+        
+        try {
+          let url = `/recommend?month=${encodeURIComponent(month)}`;
+          if (duration) {
+            url += `&duration=${encodeURIComponent(duration)}`;
+          }
+          url += '&topn=10';
+          
+          console.log('API URL:', url);
+          
+          const resp = await fetch(url);
+          
+          console.log('Response status:', resp.status);
+          
+          if (!resp.ok) {
+            const err = await resp.json();
+            status.textContent = err.error || '❌ Request failed';
+            return;
+          }
+          
+          const data = await resp.json();
+          
+          console.log('API Response:', data);
+          
+          // Check for error message from backend
+          if (data.error) {
+            status.textContent = '❌ ' + data.error;
+            results.innerHTML = '';
+            return;
+          }
+          
+          if (!data.results || data.results.length === 0) {
+            status.textContent = '😔 No cities found matching your criteria. Please try a different month or duration.';
+            results.innerHTML = '';
+            return;
+          }
+          
+          if (data.note) {
+            status.textContent = `ℹ️ ${data.note}`;
+          } else {
+            status.textContent = `😃 Found ${data.count} amazing destination${data.count > 1 ? 's' : ''} for ${data.query.month}${data.query.duration ? ' (' + data.query.duration + ' days)' : ''}`;
+          }
+          
+          // Create beautiful cards for each result
+          const container = document.createElement('div');
+          container.className = 'results-grid';
+          
+          data.results.forEach((r, idx) => {
+            const card = document.createElement('div');
+            card.className = 'result-card';
+            card.innerHTML = `
+              <div class="card-rank">#${idx + 1}</div>
+              <h3>${r.city}</h3>
+              <div class="card-rating">⭐ ${r.rating.toFixed(1)}</div>
+              <div class="card-info">
+                <div><strong>📅 Best Time:</strong> ${r.best_time}</div>
+                <div><strong>⏱️ Ideal Duration:</strong> ${r.ideal_duration}</div>
+              </div>
+              <p class="card-desc">${r.description}</p>
+            `;
+            container.appendChild(card);
+          });
+          
+          results.appendChild(container);
+          console.log('✅ Results displayed!');
+        } catch (e) {
+          console.error('Error:', e);
+          status.textContent = '❌ ' + (e.message || 'Request failed. Please try again.');
+        }
+      });
+      
+      console.log('✅ Recommender setup complete!');
+
+      /* ---------- Settings (Dark Mode & Zoom) ---------- */
+      const settingsBtn = document.getElementById('settings-btn');
+      const settingsMenu = document.getElementById('settings-menu');
+      const darkToggle = document.getElementById('dark-toggle');
+      const zoomIn = document.getElementById('zoom-in');
+      const zoomOut = document.getElementById('zoom-out');
+
+      if (settingsBtn && settingsMenu) {
+        settingsBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isHidden = settingsMenu.classList.toggle('hidden');
+          settingsMenu.setAttribute('aria-hidden', isHidden ? 'true' : 'false');
+        });
+        
+        // Close settings menu when clicking outside
+        document.addEventListener('click', (e) => {
+          if (!settingsMenu.contains(e.target) && e.target !== settingsBtn) {
+            settingsMenu.classList.add('hidden');
+            settingsMenu.setAttribute('aria-hidden', 'true');
+          }
+        });
+      }
+
+      // initialize dark mode from localStorage
+      const saved = localStorage.getItem('site-dark-mode');
+      if (saved !== null) {
+        const isDark = saved === 'true';
+        if (darkToggle) darkToggle.checked = isDark;
+        if (isDark) document.body.classList.add('dark-mode');
+      }
+
+      if (darkToggle) {
+        darkToggle.addEventListener('change', () => {
+          const isDark = darkToggle.checked;
+          document.body.classList.toggle('dark-mode', isDark);
+          localStorage.setItem('site-dark-mode', String(isDark));
+        });
+      }
+
+      let currentZoom = 1;
+      if (zoomIn) {
+        zoomIn.addEventListener('click', () => {
+          currentZoom = Math.min(currentZoom + 0.1, 1.5);
+          document.body.style.zoom = currentZoom;
+        });
+      }
+      if (zoomOut) {
+        zoomOut.addEventListener('click', () => {
+          currentZoom = Math.max(currentZoom - 0.1, 0.8);
+          document.body.style.zoom = currentZoom;
+        });
+      }
+    });
+  </script>
+  
+  <script>
+    window.addEventListener('load', function() {
+      console.log('=== PAGE FULLY LOADED ===');
+      console.log('month-input exists:', !!document.getElementById('month-input'));
+      console.log('duration-input exists:', !!document.getElementById('duration-input'));
+      console.log('go button exists:', !!document.getElementById('go'));
+      console.log('status div exists:', !!document.getElementById('status'));
+      console.log('results div exists:', !!document.getElementById('results'));
+    });
+  </script>
 </body>
 </html>

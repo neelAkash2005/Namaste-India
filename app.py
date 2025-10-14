@@ -40,88 +40,270 @@ app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'dev-secret-please-change')
 
 
 
-MODEL_PATH = 'model.pkl'
+MODEL_PATH = 'merged_df.pkl'
 
 # ---------------------------
-# Model loading
+# Advanced Recommendation System - Model loading
 # ---------------------------
-artifacts = None
+merged_df = None
+best_cities_by_month = {}
+
 if os.path.exists(MODEL_PATH):
     try:
         with open(MODEL_PATH, 'rb') as f:
-            artifacts = pickle.load(f)
+            merged_df = pickle.load(f)
+        print(f"✅ Loaded {MODEL_PATH} successfully with {len(merged_df)} records")
     except Exception as e:
         print(f"Warning: failed to load {MODEL_PATH}: {e}")
-
-if artifacts:
-    vectorizer = artifacts.get('vectorizer')
-    tfidf = artifacts.get('tfidf')
-    sim_matrix = artifacts.get('sim_matrix')
-    city_df = artifacts.get('city_df')
-    city_col = artifacts.get('city_col')
-    dur_col = artifacts.get('dur_col')
-    time_col = artifacts.get('time_col')
-    city_to_idx = artifacts.get('city_to_idx')
 else:
-    # placeholders to avoid NameError
-    vectorizer = None
-    tfidf = None
-    sim_matrix = None
-    city_df = None
-    city_col = None
-    dur_col = None
-    time_col = None
-    city_to_idx = None
+    # Try to create the pickle file from CSVs
+    print("⚠️ merged_df.pkl not found. Attempting to create from CSV files...")
+    try:
+        import numpy as np
+        import re
+        
+        df1 = pd.read_csv('City.csv')
+        df2 = pd.read_csv('Places.csv')
+        
+        # Merge the dataframes
+        merged_df = pd.merge(df1, df2, on='City')
+        
+        # Extract months from Best_time_to_visit
+        def extract_months(time_str):
+            if pd.isna(time_str):
+                return []
+            months = []
+            time_str = time_str.replace(' ', '')
+            time_parts = time_str.split(',')
+            for part in time_parts:
+                if '-' in part:
+                    start_month, end_month = part.split('-')
+                    months.append(start_month)
+                    months.append(end_month)
+                else:
+                    months.append(part)
+            return months
+        
+        merged_df['Months'] = merged_df['Best_time_to_visit'].apply(extract_months)
+        
+        # Extract duration
+        def extract_duration(duration_str):
+            if pd.isna(duration_str):
+                return (np.nan, np.nan)
+            parts = str(duration_str).split('-')
+            if len(parts) == 1:
+                duration = int(parts[0])
+                return (duration, duration)
+            elif len(parts) == 2:
+                return (int(parts[0]), int(parts[1]))
+            else:
+                return (np.nan, np.nan)
+        
+        merged_df[['Min_duration', 'Max_duration']] = merged_df['Ideal_duration'].apply(
+            lambda x: pd.Series(extract_duration(x))
+        )
+        
+        # Clean Place column (remove numbering)
+        merged_df["Place_clean"] = merged_df["Place"].apply(lambda x: re.sub(r'^\d+\.\s*', '', str(x)))
+        
+        # Convert descriptions to plain text
+        merged_df["City_desc"] = merged_df["City_desc"].apply(lambda x: str(x).strip("[]'"))
+        merged_df["Place_desc"] = merged_df["Place_desc"].apply(lambda x: str(x).strip("[]'"))
+        
+        # Fill NaN values
+        merged_df = merged_df.fillna("")
+        
+        # Save to pickle
+        with open(MODEL_PATH, 'wb') as f:
+            pickle.dump(merged_df, f)
+        
+        print(f"✅ Created {MODEL_PATH} with {len(merged_df)} records")
+    except Exception as e:
+        print(f"❌ Failed to create merged_df.pkl: {e}")
+        merged_df = None
+
+# Build best_cities_by_month mapping
+if merged_df is not None:
+    for index, row in merged_df.iterrows():
+        city = row['City']
+        months = row.get('Months', [])
+        for month in months:
+            if month not in best_cities_by_month:
+                best_cities_by_month[month] = []
+            if city not in best_cities_by_month[month]:
+                best_cities_by_month[month].append(city)
 
 # ---------------------------
-# Routes
+# Routes - Simplified Recommendation System
 # ---------------------------
 
 @app.route('/recommend', methods=['GET'])
 def recommend_route():
-    """Return top-n similar cities for a given city name."""
-    city = request.args.get('city')
-    if not city:
-        return jsonify({'error': "Missing required query parameter: city"}), 400
-
+    """
+    Simple recommendation system: Recommend cities by month and optional duration.
+    Always returns results based on ratings.
+    """
+    
+    if merged_df is None:
+        return jsonify({'error': 'Recommendation system not loaded.'}), 500
+    
+    # Get parameters
+    month = request.args.get('month', '').strip()
+    duration = request.args.get('duration', '').strip()
+    
     try:
-        topn = int(request.args.get('topn', 5))
+        topn = int(request.args.get('topn', 10))
     except ValueError:
-        return jsonify({'error': "topn must be an integer"}), 400
+        topn = 10
+    
+    # If no month provided, return error
+    if not month:
+        return jsonify({
+            'error': 'Please provide a month (e.g., October, December, June)',
+            'count': 0,
+            'results': []
+        }), 400
+    
+    # Get recommendations
+    if duration:
+        try:
+            duration_days = int(duration)
+            recommendations = get_recommendations(month, duration_days, topn)
+        except ValueError:
+            # If duration is invalid, just use month
+            recommendations = get_recommendations(month, None, topn)
+    else:
+        recommendations = get_recommendations(month, None, topn)
+    
+    return jsonify(recommendations)
 
-    if artifacts is None or city_to_idx is None or sim_matrix is None:
-        return jsonify({'error': 'Model not loaded. Please run the notebook to create model.pkl'}), 500
 
-    # fuzzy match if exact not found
-    if city not in city_to_idx:
-        candidates = [c for c in city_to_idx.keys() if c.lower() == city.lower()]
-        if candidates:
-            city = candidates[0]
-        else:
-            candidates = [c for c in city_to_idx.keys() if city.lower() in c.lower()]
-            if candidates:
-                city = candidates[0]
-            else:
-                return jsonify({'error': f"City '{city}' not found"}), 404
-
-    idx = city_to_idx[city]
-    scores = list(enumerate(sim_matrix[idx]))
-    scores = sorted(scores, key=lambda x: x[1], reverse=True)
-
-    results = []
-    for i, score in scores:
-        if i == idx:
+def get_recommendations(month, duration=None, topn=10):
+    """
+    Get city recommendations based on month and optional duration, sorted by rating.
+    Duration matching is STRICT - only shows cities where the requested duration 
+    falls within the city's ideal duration range.
+    """
+    
+    # List of valid months
+    valid_months = ['january', 'february', 'march', 'april', 'may', 'june', 
+                    'july', 'august', 'september', 'october', 'november', 'december']
+    
+    # Normalize month input (capitalize first letter)
+    month = month.capitalize()
+    month_lower = month.lower()
+    
+    # Check if the input is a valid month (at least 3 characters match)
+    is_valid_month = any(month_lower[:3] in valid_month or valid_month[:3] in month_lower 
+                         for valid_month in valid_months)
+    
+    if not is_valid_month:
+        # Return empty results with a helpful error message
+        return {
+            'query': {'month': month},
+            'count': 0,
+            'results': [],
+            'error': f'Invalid month: "{month}". Please enter a valid month name (e.g., January, February, March, etc.)'
+        }
+    
+    # Get all unique cities with their data
+    city_data_dict = {}
+    
+    for index, row in merged_df.iterrows():
+        city = row['City']
+        months = row.get('Months', [])
+        min_dur = row.get('Min_duration')
+        max_dur = row.get('Max_duration')
+        rating = row.get('Ratings_x', row.get('Ratings', 0))
+        
+        # Check if month matches (case-insensitive, partial match)
+        month_match = any(month.lower() in str(m).lower() or str(m).lower() in month.lower() for m in months)
+        
+        if not month_match:
             continue
-        results.append({
-            'city': str(city_df.loc[i, city_col]),
-            dur_col: str(city_df.loc[i, dur_col]),
-            time_col: str(city_df.loc[i, time_col]),
-            'score': float(score)
-        })
-        if len(results) >= topn:
-            break
-
-    return jsonify({'query_city': city, 'results': results})
+        
+        # STRICT duration check if provided
+        if duration is not None:
+            duration = int(duration)
+            
+            # Skip if city doesn't have duration data
+            if pd.isna(min_dur) or pd.isna(max_dur):
+                continue
+            
+            # Only include if requested duration is within the city's ideal range
+            # Example: City has 10-14 days ideal, user wants 14 days → MATCH ✓
+            # Example: City has 2-4 days ideal, user wants 14 days → NO MATCH ✗
+            if not (min_dur <= duration <= max_dur):
+                continue
+        
+        # Store only highest rated entry for each city
+        if city not in city_data_dict:
+            city_data_dict[city] = {
+                'city': city,
+                'rating': float(rating) if pd.notna(rating) else 0,
+                'ideal_duration': str(row.get('Ideal_duration', '')),
+                'best_time': str(row.get('Best_time_to_visit', '')),
+                'description': str(row.get('City_desc', ''))[:200] + '...'
+            }
+        else:
+            # Keep the higher rating
+            current_rating = float(rating) if pd.notna(rating) else 0
+            if current_rating > city_data_dict[city]['rating']:
+                city_data_dict[city] = {
+                    'city': city,
+                    'rating': current_rating,
+                    'ideal_duration': str(row.get('Ideal_duration', '')),
+                    'best_time': str(row.get('Best_time_to_visit', '')),
+                    'description': str(row.get('City_desc', ''))[:200] + '...'
+                }
+    
+    # Convert to list and sort by rating (highest first)
+    results = list(city_data_dict.values())
+    results.sort(key=lambda x: x['rating'], reverse=True)
+    
+    # If no results found with strict duration, show month-only results
+    if len(results) == 0 and duration is not None:
+        # Retry with month only (no duration filter)
+        city_data_dict = {}
+        for index, row in merged_df.iterrows():
+            city = row['City']
+            months = row.get('Months', [])
+            rating = row.get('Ratings_x', row.get('Ratings', 0))
+            
+            month_match = any(month.lower() in str(m).lower() or str(m).lower() in month.lower() for m in months)
+            
+            if month_match:
+                if city not in city_data_dict:
+                    city_data_dict[city] = {
+                        'city': city,
+                        'rating': float(rating) if pd.notna(rating) else 0,
+                        'ideal_duration': str(row.get('Ideal_duration', '')),
+                        'best_time': str(row.get('Best_time_to_visit', '')),
+                        'description': str(row.get('City_desc', ''))[:200] + '...'
+                    }
+                else:
+                    current_rating = float(rating) if pd.notna(rating) else 0
+                    if current_rating > city_data_dict[city]['rating']:
+                        city_data_dict[city] = {
+                            'city': city,
+                            'rating': current_rating,
+                            'ideal_duration': str(row.get('Ideal_duration', '')),
+                            'best_time': str(row.get('Best_time_to_visit', '')),
+                            'description': str(row.get('City_desc', ''))[:200] + '...'
+                        }
+        
+        results = list(city_data_dict.values())
+        results.sort(key=lambda x: x['rating'], reverse=True)
+    
+    query_info = {'month': month}
+    if duration:
+        query_info['duration'] = duration
+    
+    return {
+        'query': query_info,
+        'count': len(results[:topn]),
+        'results': results[:topn]
+    }
 
 
 @app.route('/health', methods=['GET'])
@@ -234,7 +416,7 @@ def logout():
     session.pop('username', None)
     return jsonify({'ok': True})
 
-# ---------------------------
+# --------------------------------------------------------------
 # chat bot
 
 @app.route('/chatbot', methods=['POST'])

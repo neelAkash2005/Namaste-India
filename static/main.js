@@ -21,44 +21,102 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   /* ---------- Recommender ---------- */
-  const cityInput = document.getElementById('city-input');
-  const topnInput = document.getElementById('topn-input');
+  const monthInput = document.getElementById('month-input');
+  const durationInput = document.getElementById('duration-input');
   const go = document.getElementById('go');
   const status = document.getElementById('status');
   const results = document.getElementById('results');
 
+  // Safety check - ensure all elements exist
+  if (!monthInput || !durationInput || !go || !status || !results) {
+    console.error('Recommender elements not found!', {
+      monthInput: !!monthInput,
+      durationInput: !!durationInput,
+      go: !!go,
+      status: !!status,
+      results: !!results
+    });
+    return;
+  }
+
+  console.log('✅ Recommender initialized successfully!');
+
   go.addEventListener('click', async () => {
-    const city = cityInput.value.trim();
-    const topn = Math.max(1, parseInt(topnInput.value) || 5);
-    if (!city) {
-      status.textContent = 'Please enter a city name.';
+    console.log('🔍 Button clicked!');
+    const month = monthInput.value.trim();
+    const duration = durationInput.value.trim();
+    
+    console.log('Search params:', { month, duration });
+    
+    if (!month) {
+      status.textContent = '⚠️ Please enter a month to get recommendations.';
       return;
     }
-    status.textContent = 'Loading...';
+    
+    status.textContent = '🔍 Finding the best destinations for you...';
     results.innerHTML = '';
+    
     try {
-      const resp = await fetch(`/recommend?city=${encodeURIComponent(city)}&topn=${topn}`);
+      let url = `/recommend?month=${encodeURIComponent(month)}`;
+      if (duration) {
+        url += `&duration=${encodeURIComponent(duration)}`;
+      }
+      url += '&topn=10'; // Always show top 10 results
+      
+      console.log('API URL:', url);
+      
+      const resp = await fetch(url);
+      
+      console.log('Response status:', resp.status);
+      
       if (!resp.ok) {
         const err = await resp.json();
-        status.textContent = err.error || 'Request failed';
+        status.textContent = err.error || '❌ Request failed';
         return;
       }
+      
       const data = await resp.json();
-      status.textContent = `Results for ${data.query_city}`;
+      
+      console.log('API Response:', data);
+      
       if (!data.results || data.results.length === 0) {
-        results.innerHTML = '<p>No recommendations found.</p>';
+        status.textContent = '😔 No cities found matching your criteria. Try a different month or duration.';
+        results.innerHTML = '';
         return;
       }
-      const ul = document.createElement('ol');
-      data.results.forEach(r => {
-        const li = document.createElement('li');
-        li.innerHTML = `<strong>${r.city}</strong> — ${r.Score || r.score}
-                        (${r[Object.keys(r).find(k => k !== 'city' && k !== 'score')] || ''})`;
-        ul.appendChild(li);
+      
+      // Show note if exists (e.g., duration too long)
+      if (data.note) {
+        status.textContent = `ℹ️ ${data.note}`;
+      } else {
+        status.textContent = `✨ Found ${data.count} amazing destination${data.count > 1 ? 's' : ''} for ${data.query.month}${data.query.duration ? ' (' + data.query.duration + ' days)' : ''}`;
+      }
+      
+      // Create beautiful cards for each result
+      const container = document.createElement('div');
+      container.className = 'results-grid';
+      
+      data.results.forEach((r, idx) => {
+        const card = document.createElement('div');
+        card.className = 'result-card';
+        card.innerHTML = `
+          <div class="card-rank">#${idx + 1}</div>
+          <h3>${r.city}</h3>
+          <div class="card-rating">⭐ ${r.rating.toFixed(1)}</div>
+          <div class="card-info">
+            <div><strong>📅 Best Time:</strong> ${r.best_time}</div>
+            <div><strong>⏱️ Ideal Duration:</strong> ${r.ideal_duration}</div>
+          </div>
+          <p class="card-desc">${r.description}</p>
+        `;
+        container.appendChild(card);
       });
-      results.appendChild(ul);
+      
+      results.appendChild(container);
+      console.log('✅ Results displayed!');
     } catch (e) {
-      status.textContent = e.message || 'Request failed';
+      console.error('Error:', e);
+      status.textContent = '❌ ' + (e.message || 'Request failed. Please try again.');
     }
   });
 

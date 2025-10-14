@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Button Test</title>
+</head>
+<body>
+    <h1>Simple Button Test</h1>
+    <input id="month-input" placeholder="Month" value="December">
+    <input id="duration-input" placeholder="Days" value="7">
+    <button id="go">Click Me!</button>
+    <div id="status">Status here</div>
+    <div id="results">Results here</div>
+    
+    <script>
+        console.log('Script loaded!');
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded!');
+            
+            const btn = document.getElementById('go');
+            const status = document.getElementById('status');
+            
+            console.log('Button element:', btn);
+            
+            btn.addEventListener('click', function() {
+                console.log('BUTTON CLICKED!');
+                status.textContent = 'Button works! Clicked at ' + new Date().toLocaleTimeString();
+            });
+        });
+    </script>
+</body>
+</html>
