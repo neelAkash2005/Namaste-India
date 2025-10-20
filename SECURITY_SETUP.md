@@ -63,9 +63,9 @@ python -c "import flask_limiter, flask_wtf, bleach, cryptography; print('✅ All
 
 ## 🛡️ Security Features
 
-### Already Implemented in Your Project ✅
+### Already Implemented in the Project ✅
 
-Your `WebSecurity.py` already has:
+  `WebSecurity.py` already has:
 
 1. **CSRF Protection** - Prevents cross-site request forgery
 2. **XSS Prevention** - Sanitizes user input with bleach
@@ -87,10 +87,6 @@ You can now add:
 
 ---
 
-## 💡 Quick Usage Examples
-
-
----
 
 ## 📋 Security Checklist
 
