@@ -89,60 +89,6 @@ You can now add:
 
 ## 💡 Quick Usage Examples
 
-### 1. Add Rate Limiting (Prevent Brute Force)
-
-Add to your `app.py`:
-
-```python
-from flask_limiter import Limiter
-from flask_limiter.util import get_remote_address
-
-limiter = Limiter(
-    app=app,
-    key_func=get_remote_address,
-    default_limits=["200 per day", "50 per hour"]
-)
-
-# Protect login from brute force
-@app.route('/auth/login', methods=['POST'])
-@limiter.limit("5 per minute")  # Max 5 attempts per minute
-def login():
-    # Your existing login code
-    pass
-```
-
-### 2. Use Environment Variables
-
-In `app.py`, replace:
-```python
-# OLD:
-app.secret_key = 'dev-secret-please-change'
-
-# NEW:
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
-app.secret_key = os.getenv('FLASK_SECRET_KEY', 'fallback-dev-secret')
-```
-
-### 3. Validate Emails
-
-```python
-from email_validator import validate_email, EmailNotValidError
-
-def check_email(email):
-    try:
-        validated = validate_email(email)
-        return True, validated.email
-    except EmailNotValidError as e:
-        return False, str(e)
-
-# Use in signup:
-is_valid, result = check_email(user_email)
-if not is_valid:
-    return jsonify({'error': result}), 400
-```
 
 ---
 
@@ -167,7 +113,6 @@ Current Status:
 ## 🔐 Files Added/Modified
 
 ### New Files:
-- ✅ `SECURITY_GUIDE.md` - Comprehensive security documentation
 - ✅ `SECURITY_SETUP.md` - This quick start guide
 - ✅ `.env.example` - Environment variables template
 
@@ -221,23 +166,15 @@ Check cookies in browser DevTools:
 - Should have `SameSite=Lax`
 - Should have `Secure` flag in production
 
----
-
-## 📚 Learn More
-
-- **Full Guide**: See `SECURITY_GUIDE.md` for detailed documentation
-- **OWASP Top 10**: https://owasp.org/www-project-top-ten/
-- **Flask Security**: https://flask.palletsprojects.com/en/2.3.x/security/
 
 ---
 
 ## ✅ Summary
 
-Your project now has:
+ Project now has:
 - ✅ **Professional security setup** with 15+ packages
 - ✅ **Environment variables** configuration ready
 - ✅ **Production-ready** security measures
-- ✅ **OWASP-compliant** implementation
 
 **Next Steps:**
 1. ✅ Install packages: `pip install -r requirements.txt`
@@ -245,4 +182,4 @@ Your project now has:
 3. ✅ Add rate limiting to sensitive endpoints
 4. ✅ Enable HTTPS in production
 
-🔒 **Your application is now significantly more secure!**
+🔒 **Application is now significantly more secure !!**
