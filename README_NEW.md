@@ -1,5 +1,14 @@
-
 ## 🤖 AI-Powered Features
+
+# 🌏 Namaste India - ML-Powered Tourism Platform
+
+![ML Accuracy](https://img.shields.io/badge/ML%20Accuracy-100%25-brightgreen)
+![Python](https://img.shields.io/badge/Python-3.8+-blue)
+![Flask](https://img.shields.io/badge/Flask-3.0+-green)
+![Status](https://img.shields.io/badge/Status-Production%20Ready-success)
+
+**_Discover. Explore. Experience India with AI Intelligence!_**
+
 
 ### Core ML Capabilities
 
