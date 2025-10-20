@@ -1,15 +1,3 @@
-# 🌏 Namaste India - ML-Powered Tourism Platform
-
-![ML Accuracy](https://img.shields.io/badge/ML%20Accuracy-100%25-brightgreen)
-![Python](https://img.shields.io/badge/Python-3.8+-blue)
-![Flask](https://img.shields.io/badge/Flask-3.0+-green)
-![Status](https://img.shields.io/badge/Status-Production%20Ready-success)
-
-**_Discover. Explore. Experience India with AI Intelligence!_**
-
-Namaste India is a **cutting-edge, ML-powered tourism platform** featuring **100% accurate machine learning recommendations** trained on **2,989 attractions** across **96 Indian cities**. Get intelligent, personalized travel suggestions powered by advanced AI! ✨
-
----
 
 ## 🤖 AI-Powered Features
 
@@ -258,16 +246,7 @@ curl "http://localhost:5000/similar/Mumbai"
 
 ---
 
-## 🛡️ Security Features
 
-- ✅ **CSRF Protection** - Flask-WTF tokens
-- ✅ **Password Hashing** - bcrypt (industry standard)
-- ✅ **XSS Prevention** - HTML sanitization
-- ✅ **SQL Injection Protection** - SQLAlchemy ORM
-- ✅ **Session Security** - HttpOnly, SameSite cookies
-- ✅ **Security Headers** - CSP, X-Frame-Options
-- ✅ **Rate Limiting** - DDoS protection ready
-- ✅ **Environment Variables** - Secrets management
 
 ---
 
