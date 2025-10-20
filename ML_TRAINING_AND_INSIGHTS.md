@@ -311,7 +311,6 @@ ML predicts if a city is best for short/medium/long trips.
 ### 4. Personalized Rankings
 Recommendations adapt based on what features you value most.
 
-## 🐛 Troubleshooting
 
 ### ML Models Not Loading?
 ```bash
@@ -333,10 +332,9 @@ pip install xgboost
 
 Potential enhancements:
 1. **User History**: Track past searches to personalize recommendations
-2. **Collaborative Filtering**: "Users who liked X also liked Y"
-3. **Sentiment Analysis**: Analyze reviews to improve ratings
-4. **Time Series**: Predict seasonal popularity trends
-5. **Deep Learning**: Use LSTM/Transformers for sequence predictions
+2. **Sentiment Analysis**: Analyze reviews to improve ratings
+3. **Time Series**: Predict seasonal popularity trends
+4. **Deep Learning**: Use LSTM/Transformers for sequence predictions
 
 
 ---
