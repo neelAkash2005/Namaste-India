@@ -73,9 +73,6 @@ python app.py
 
 ```
 🌐 Website: http://localhost:5000
-🤖 API: http://localhost:5000/recommend
-📊 Insights: http://localhost:5000/insights
-💚 Health: http://localhost:5000/health
 ```
 
 ---
@@ -159,17 +156,6 @@ Get real-time ML model statistics and performance metrics.
     "total_cities": 96,
     "total_attractions": 2989
   }
-}
-```
-
-### 4. **GET /health** - System Health Check
-
-```json
-{
-  "status": "healthy",
-  "ml_available": true,
-  "data_loaded": true,
-  "records": 2989
 }
 ```
 
@@ -309,16 +295,6 @@ python test_security.py
 
 ---
 
-## 📖 Documentation
-
-| Document | Description | Lines |
-|----------|-------------|-------|
-| **ML_ENHANCED_README.md** | Complete ML documentation | 650+ |
-| **SECURITY_GUIDE.md** | Comprehensive security guide | 280+ |
-| **SECURITY_SETUP.md** | Quick security start | 180+ |
-| **ML_SUCCESS.md** | ML implementation details | 200+ |
-
----
 
 ## 🎯 Why Choose Namaste India?
 
@@ -361,13 +337,8 @@ We welcome contributions! Please see our contributing guidelines.
 
 ---
 
-## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - **Data Source**: 2,989 tourist attractions across India
 - **ML Libraries**: Scikit-learn, XGBoost, Pandas, NumPy
@@ -376,24 +347,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 📞 Support
 
-- 📧 Email: [Your Email]
-- 🐛 Issues: [GitHub Issues](https://github.com/neelAkash2005/Namaste-India/issues)
-- 📚 Docs: See ML_ENHANCED_README.md
-- 💬 Discussions: [GitHub Discussions](https://github.com/neelAkash2005/Namaste-India/discussions)
 
----
-
-## 📊 Project Stats
-
-![GitHub Stars](https://img.shields.io/github/stars/neelAkash2005/Namaste-India)
-![GitHub Forks](https://img.shields.io/github/forks/neelAkash2005/Namaste-India)
-![GitHub Issues](https://img.shields.io/github/issues/neelAkash2005/Namaste-India)
-
----
-
-**Built with ❤️ using Python, Flask, Machine Learning, and Advanced AI**
+**Built using Python, Flask, Machine Learning, and Advanced AI**
 
 🤖 **Experience the future of tourism recommendations with 100% accurate AI!**
 
