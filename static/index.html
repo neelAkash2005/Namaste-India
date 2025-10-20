@@ -717,7 +717,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const status = document.getElementById('status');
       const results = document.getElementById('results');
 
-      console.log('Elements found:', {
+      console.log('✅ Elements found:', {
         monthInput: !!monthInput,
         durationInput: !!durationInput,
         go: !!go,
@@ -731,7 +731,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      console.log(' All elements found! Adding click listener...');
+      console.log(' ✅ All elements found! Adding click listener...');
 
       go.addEventListener('click', async function() {
         console.log(' BUTTON CLICKED!');

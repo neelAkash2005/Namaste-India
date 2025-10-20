@@ -2,19 +2,7 @@
   "demo": {
     "pw": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f"
   },
-  "Akash": {
-    "pw": "20071050fa0779af16d6b63753ef883c2799084a8af018d8c522d824b1013c52"
-  },
-  "NeelAkash": {
-    "pw": "20071050fa0779af16d6b63753ef883c2799084a8af018d8c522d824b1013c52"
-  },
-  "soma": {
-    "pw": "08dd19ebe332aeb67bca30589e54e627232949c7373d3e353f94c21f69a9d9c5"
-  },
   "sreedutta": {
     "pw": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92"
-  },
-  "Me": {
-    "pw": "d0313478cf91b5959009ecff1b9fc4ba0345d7ac0616e2b1b339327433081248"
   }
 }

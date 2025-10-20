@@ -1,7 +1,36 @@
+# Core Data Science & ML
 pandas
 numpy
 scikit-learn
 seaborn
 matplotlib
-Flask
+xgboost
+joblib
 
+# Web Framework
+Flask
+Flask-Cors
+
+# Web Security
+Flask-Talisman          # HTTPS enforcement, security headers
+Flask-Limiter           # Rate limiting to prevent abuse
+Flask-WTF               # CSRF protection for forms
+python-dotenv           # Environment variables management
+cryptography            # Encryption utilities
+PyJWT                   # JSON Web Tokens for authentication
+bcrypt                  # Password hashing
+itsdangerous            # Secure data signing
+Werkzeug                # Security utilities (usually comes with Flask)
+
+# Input Validation & Sanitization
+bleach                  # HTML sanitization
+email-validator         # Email validation
+python-dateutil         # Date validation
+
+# Session & Cookie Security
+Flask-Session           # Server-side session management
+
+# Additional Security Tools
+certifi                 # SSL certificate verification
+requests                # Secure HTTP requests
+urllib3                 # HTTP client with security features

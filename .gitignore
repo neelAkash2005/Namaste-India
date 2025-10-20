@@ -136,6 +136,8 @@ celerybeat.pid
 
 # Environments
 .env
+.env.local
+.env.*.local
 .envrc
 .venv
 env/
@@ -143,6 +145,27 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+
+# Security & Sensitive Data
+*.pem
+*.key
+*.crt
+*.csr
+*.p12
+*.pfx
+secrets.json
+credentials.json
+users.json
+site.db
+*.db
+*.sqlite
+*.sqlite3
+flask_session/
+
+# SSL/TLS Certificates
+ssl/
+certs/
+certificates/
 
 # Spyder project settings
 .spyderproject

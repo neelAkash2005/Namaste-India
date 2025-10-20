@@ -91,14 +91,11 @@ a{color:var(--brand); text-decoration:none}
 .card .card-media{position:relative}
 .card .card-media::after{content:""; position:absolute; left:0; right:0; top:0; bottom:0; pointer-events:none; border-radius:inherit;}
 
-/* For dark mode use a lighter overlay so images remain visible */
-/* Use a very subtle overlay in dark mode only so embedded image text stays readable */
 /* stronger overlays for improved readability */
 /* Make overlays deeper so text remains legible on busy photos in both themes */
 body.dark-mode .card .card-media::after{background:linear-gradient(to bottom, rgba(0,0,0,0.18), rgba(0,0,0,0.42));}
 body:not(.dark-mode) .card .card-media::after{background:linear-gradient(to bottom, rgba(255,255,255,0.02), rgba(0,0,0,0.06));}
 
-/* Improve text contrast for headings/captions near images */
 .card-body h3, .card-body p{color:var(--text); text-shadow: none}
 /* In dark mode add a small darker glow to help separation from backgrounds */
 body.dark-mode .card-body h3, body.dark-mode .card-body p{color:var(--text); text-shadow: 0 3px 14px rgba(0,0,0,0.8);}

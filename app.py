@@ -5,6 +5,19 @@ import hashlib
 import json
 import pandas as pd
 
+# Import ML recommendation functions
+try:
+    from ml_recommender import (
+        get_ml_enhanced_recommendations, 
+        get_similar_cities_ml, 
+        get_model_insights,
+        ML_MODELS_AVAILABLE
+    )
+    print("✅ ML Recommender module loaded!")
+except ImportError as e:
+    print(f"⚠️ ML Recommender not available: {e}")
+    ML_MODELS_AVAILABLE = False
+
 # ---------------------------
 # User handling
 # ---------------------------
@@ -134,18 +147,21 @@ if merged_df is not None:
                 best_cities_by_month[month].append(city)
 
 # ---------------------------
-# Routes - Simplified Recommendation System
+# ML-Enhanced Recommendation Routes (Primary System)
 # ---------------------------
 
 @app.route('/recommend', methods=['GET'])
 def recommend_route():
     """
-    Simple recommendation system: Recommend cities by month and optional duration.
-    Always returns results based on ratings.
+    ML-Enhanced recommendation system using trained machine learning models.
+    Returns intelligent recommendations with ML confidence scores.
     """
     
-    if merged_df is None:
-        return jsonify({'error': 'Recommendation system not loaded.'}), 500
+    if not ML_MODELS_AVAILABLE:
+        return jsonify({
+            'error': 'ML models not available. Please train models first by running train_ml_models.py',
+            'fallback': 'Using basic recommendation system'
+        }), 503
     
     # Get parameters
     month = request.args.get('month', '').strip()
@@ -164,151 +180,74 @@ def recommend_route():
             'results': []
         }), 400
     
-    # Get recommendations
+    # Get ML-enhanced recommendations
     if duration:
         try:
             duration_days = int(duration)
-            recommendations = get_recommendations(month, duration_days, topn)
+            recommendations = get_ml_enhanced_recommendations(month, duration_days, topn)
         except ValueError:
-            # If duration is invalid, just use month
-            recommendations = get_recommendations(month, None, topn)
+            recommendations = get_ml_enhanced_recommendations(month, None, topn)
     else:
-        recommendations = get_recommendations(month, None, topn)
+        recommendations = get_ml_enhanced_recommendations(month, None, topn)
     
     return jsonify(recommendations)
 
 
-def get_recommendations(month, duration=None, topn=10):
+@app.route('/similar/<city_name>', methods=['GET'])
+def similar_cities_route(city_name):
     """
-    Get city recommendations based on month and optional duration, sorted by rating.
-    Duration matching is STRICT - only shows cities where the requested duration 
-    falls within the city's ideal duration range.
+    Find similar cities using ML-based feature similarity.
     """
     
-    # List of valid months
-    valid_months = ['january', 'february', 'march', 'april', 'may', 'june', 
-                    'july', 'august', 'september', 'october', 'november', 'december']
+    if not ML_MODELS_AVAILABLE:
+        return jsonify({
+            'error': 'ML models not available'
+        }), 503
     
-    # Normalize month input (capitalize first letter)
-    month = month.capitalize()
-    month_lower = month.lower()
+    try:
+        topn = int(request.args.get('topn', 5))
+    except ValueError:
+        topn = 5
     
-    # Check if the input is a valid month (at least 3 characters match)
-    is_valid_month = any(month_lower[:3] in valid_month or valid_month[:3] in month_lower 
-                         for valid_month in valid_months)
+    result = get_similar_cities_ml(city_name, topn)
+    return jsonify(result)
+
+
+@app.route('/insights', methods=['GET'])
+def ml_insights_route():
+    """
+    Get ML model performance metrics and insights.
+    Enhanced with detailed statistics and recommendations.
+    """
     
-    if not is_valid_month:
-        # Return empty results with a helpful error message
-        return {
-            'query': {'month': month},
-            'count': 0,
-            'results': [],
-            'error': f'Invalid month: "{month}". Please enter a valid month name (e.g., January, February, March, etc.)'
-        }
+    if not ML_MODELS_AVAILABLE:
+        return jsonify({
+            'error': 'ML models not available',
+            'message': 'Train ML models by running: python train_ml_models.py'
+        }), 503
     
-    # Get all unique cities with their data
-    city_data_dict = {}
+    insights = get_model_insights()
     
-    for index, row in merged_df.iterrows():
-        city = row['City']
-        months = row.get('Months', [])
-        min_dur = row.get('Min_duration')
-        max_dur = row.get('Max_duration')
-        rating = row.get('Ratings_x', row.get('Ratings', 0))
-        
-        # Check if month matches (case-insensitive, partial match)
-        month_match = any(month.lower() in str(m).lower() or str(m).lower() in month.lower() for m in months)
-        
-        if not month_match:
-            continue
-        
-        # STRICT duration check if provided
-        if duration is not None:
-            duration = int(duration)
-            
-            # Skip if city doesn't have duration data
-            if pd.isna(min_dur) or pd.isna(max_dur):
-                continue
-            
-            # Only include if requested duration is within the city's ideal range
-            # Example: City has 10-14 days ideal, user wants 14 days → MATCH ✓
-            # Example: City has 2-4 days ideal, user wants 14 days → NO MATCH ✗
-            if not (min_dur <= duration <= max_dur):
-                continue
-        
-        # Store only highest rated entry for each city
-        if city not in city_data_dict:
-            city_data_dict[city] = {
-                'city': city,
-                'rating': float(rating) if pd.notna(rating) else 0,
-                'ideal_duration': str(row.get('Ideal_duration', '')),
-                'best_time': str(row.get('Best_time_to_visit', '')),
-                'description': str(row.get('City_desc', ''))[:200] + '...'
-            }
-        else:
-            # Keep the higher rating
-            current_rating = float(rating) if pd.notna(rating) else 0
-            if current_rating > city_data_dict[city]['rating']:
-                city_data_dict[city] = {
-                    'city': city,
-                    'rating': current_rating,
-                    'ideal_duration': str(row.get('Ideal_duration', '')),
-                    'best_time': str(row.get('Best_time_to_visit', '')),
-                    'description': str(row.get('City_desc', ''))[:200] + '...'
-                }
-    
-    # Convert to list and sort by rating (highest first)
-    results = list(city_data_dict.values())
-    results.sort(key=lambda x: x['rating'], reverse=True)
-    
-    # If no results found with strict duration, show month-only results
-    if len(results) == 0 and duration is not None:
-        # Retry with month only (no duration filter)
-        city_data_dict = {}
-        for index, row in merged_df.iterrows():
-            city = row['City']
-            months = row.get('Months', [])
-            rating = row.get('Ratings_x', row.get('Ratings', 0))
-            
-            month_match = any(month.lower() in str(m).lower() or str(m).lower() in month.lower() for m in months)
-            
-            if month_match:
-                if city not in city_data_dict:
-                    city_data_dict[city] = {
-                        'city': city,
-                        'rating': float(rating) if pd.notna(rating) else 0,
-                        'ideal_duration': str(row.get('Ideal_duration', '')),
-                        'best_time': str(row.get('Best_time_to_visit', '')),
-                        'description': str(row.get('City_desc', ''))[:200] + '...'
-                    }
-                else:
-                    current_rating = float(rating) if pd.notna(rating) else 0
-                    if current_rating > city_data_dict[city]['rating']:
-                        city_data_dict[city] = {
-                            'city': city,
-                            'rating': current_rating,
-                            'ideal_duration': str(row.get('Ideal_duration', '')),
-                            'best_time': str(row.get('Best_time_to_visit', '')),
-                            'description': str(row.get('City_desc', ''))[:200] + '...'
-                        }
-        
-        results = list(city_data_dict.values())
-        results.sort(key=lambda x: x['rating'], reverse=True)
-    
-    query_info = {'month': month}
-    if duration:
-        query_info['duration'] = duration
-    
-    return {
-        'query': query_info,
-        'count': len(results[:topn]),
-        'results': results[:topn]
+    # Add system statistics
+    insights['system_stats'] = {
+        'total_cities': len(merged_df['City'].unique()),
+        'total_attractions': len(merged_df),
+        'data_source': 'merged_df.pkl',
+        'ml_models_file': 'ml_models.pkl'
     }
+    
+    return jsonify(insights)
 
 
 @app.route('/health', methods=['GET'])
 def health():
-    return jsonify({'status': 'ok'})
+    """Health check endpoint"""
+    return jsonify({
+        'status': 'healthy',
+        'ml_available': ML_MODELS_AVAILABLE,
+        'data_loaded': merged_df is not None,
+        'records': len(merged_df) if merged_df is not None else 0
+    })
 
 
 # ---- Static HTML pages ----

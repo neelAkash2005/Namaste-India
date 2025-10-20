@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Smooth scroll for anchor links
+  // Scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', function (e) {
       const href = this.getAttribute('href');
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (duration) {
         url += `&duration=${encodeURIComponent(duration)}`;
       }
-      url += '&topn=10'; // Always show top 10 results
+      url += '&topn=5'; // Always show top 5 results
       
       console.log('API URL:', url);
       
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function () {
         status.textContent = `✨ Found ${data.count} amazing destination${data.count > 1 ? 's' : ''} for ${data.query.month}${data.query.duration ? ' (' + data.query.duration + ' days)' : ''}`;
       }
       
-      // Create beautiful cards for each result
+      // Create  cards for each result
       const container = document.createElement('div');
       container.className = 'results-grid';
       
