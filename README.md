@@ -32,7 +32,7 @@ Implements protection against major web vulnerabilities:
 - ✅ SQL Injection Prevention  
 - ✅ Broken Authentication Handling  
 
-⚙️ Note: The WebSecurity.py module is not yet integrated into the main application, as inbuilt authentication and security have already been implemented through auth.js.<br>
+⚙️ Note: The WebSecurity.py module is not yet integrated into the main application, as in-built authentication and security have already been implemented through auth.js.<br>
 🔒 Future updates may include WebSecurity.py for enhanced backend-level security and session control.
 
 ---
@@ -61,8 +61,6 @@ Implements protection against major web vulnerabilities:
 
 ---
 
-
----
 
 ## 🧠 How It Works  
 
