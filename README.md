@@ -53,11 +53,11 @@ Implements protection against major web vulnerabilities:
 | Name | Role / Contribution |
 |------|----------------------|
 | **Akash Poddar** | Project Lead – Frontend & Backend Development, Recommendation System, Chatbot, UI Features |
-| **Shreetama Dutta** ([GitHub Profile](https://github.com/adeline-riley)) | Web Security Implementation, Password Strength Checker |
+| **Shreetama Dutta** ([GitHub Profile](https://github.com/noirshree)) | Web Security Implementation, Password Strength Checker |
 
 > 💡 *Special thanks to my collaborator for building the security layer and strengthening the authentication module and helping througout the project.*
 
-**@adeline-riley**
+**@noirshree**
 
 ---
 
