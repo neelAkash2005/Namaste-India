@@ -72,7 +72,6 @@ Implements protection against major web vulnerabilities:
 ---
 
 
-
 ## ⚙️ Installation  
 
  **Clone this repository**  
